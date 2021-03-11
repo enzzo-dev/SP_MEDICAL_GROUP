@@ -1,0 +1,65 @@
+
+USE sp_medical_group;
+GO
+
+CREATE TABLE tiposUsuarios
+(
+	IdTipoUsuario INT PRIMARY KEY IDENTITY
+	,Nome VARCHAR(100) UNIQUE NOT NULL
+);
+GO
+
+CREATE TABLE Usuarios(
+	
+	IdUsuario INT PRIMARY KEY IDENTITY
+	,IdTipoUsuario INT FOREIGN KEY REFERENCES tiposUsuarios (IdTipoUsuario)
+	,NomeUsuario VARCHAR(200) NOT NULL
+	,Email VARCHAR(200) UNIQUE NOT NULL
+	,Senha VARCHAR(200) NOT NULL
+
+);
+GO
+
+
+
+CREATE TABLE TiposDeConsulta
+(
+
+	IdTipoDeConsulta INT PRIMARY KEY IDENTITY
+	,TituloTipoDeConsulta VARCHAR (100) NOT NULL
+
+);
+GO
+
+
+
+CREATE TABLE Clinica
+(
+
+	IdClinica INT PRIMARY KEY IDENTITY
+	,NomeFantasia VARCHAR(150) NOT NULL
+	,Cnpj INT UNIQUE NOT NULL
+	,HroFuncionamento VARCHAR(100) NOT NULL
+	,Endereco VARCHAR(200) NOT NULL
+	,RazaoSocial VARCHAR(100) UNIQUE NOT NULL
+
+);
+GO
+
+
+
+CREATE TABLE Consultas
+(
+
+	IdConsulta INT PRIMARY KEY IDENTITY
+	,IdTipoDeConsulta INT FOREIGN KEY REFERENCES TiposDeConsulta(IdTipoDeConsulta)
+	,IdClinica INT FOREIGN KEY REFERENCES Clinica(IdClinica)
+	,NomePaciente VARCHAR(150) NOT NULL
+	,Rg INT UNIQUE NOT NULL
+	,Cpf INT UNIQUE NOT NULL
+	,Endereco VARCHAR(255) NOT NULL
+	,DataNascimento VARCHAR(50) NOT NULL
+	,Telefone INT NOT NULL
+
+);
+GO
