@@ -1,0 +1,97 @@
+CREATE DATABASE Medical_GROUP;
+
+USE Medical_GROUP;
+
+
+--ARQUIVO DDL PARA CRIAR O BANCO DE DADOS E TABELAS NECESSÁRIAS PARA A REALIZAÇÃO DO DESAFIO
+CREATE TABLE TiposUsuarios
+(
+
+	IdTipoUsuario INT PRIMARY KEY IDENTITY
+	,Nome VARCHAR(150) NOT NULL
+
+);
+
+CREATE TABLE Usuarios
+(
+
+	IdTipoUsuario INT FOREIGN KEY REFERENCES TiposUsuarios(IdTipoUsuario)
+	,IdUsuario INT PRIMARY KEY IDENTITY
+	,Nome VARCHAR(200) NOT NULL
+	,Email VARCHAR(200) UNIQUE NOT NULL
+	,Senha VARCHAR(250) NOT NULL
+
+);
+
+CREATE TABLE Especialidades
+(
+
+	IdEspecialidade INT PRIMARY KEY IDENTITY
+	,DescricaoEspec VARCHAR(100) NOT NULL
+
+);
+
+CREATE TABLE Clinica
+(
+
+	IdClinica INT PRIMARY KEY IDENTITY
+	,NomeFantasia VARCHAR(100) NOT NULL
+	,Cnpj INT UNIQUE NOT NULL
+	,HroFuncionamento VARCHAR(50) NOT NULL
+	,Endereco VARCHAR(200) NOT NULL
+	,RazaoSocial VARCHAR(100) NOT NULL
+
+);
+
+CREATE TABLE StatusConsulta
+(
+
+	IdStatusConsulta INT PRIMARY KEY IDENTITY
+	,DescricaoStatus VARCHAR(50) NOT NULL
+
+);
+
+CREATE TABLE Medicos
+(
+
+	IdMedico INT PRIMARY KEY IDENTITY
+	,IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario)
+	,IdClinica INT FOREIGN KEY REFERENCES Clinica(IdClinica)
+	,IdEspecialidade INT FOREIGN KEY REFERENCES Especialidades(IdEspecialidade)
+	,NomeMedico VARCHAR(100) NOT NULL
+	,CRM VARCHAR(40) UNIQUE NOT NULL
+
+);
+
+CREATE TABLE Pacientes
+(
+
+	IdPaciente INT PRIMARY KEY IDENTITY
+	,IdUsuario INT FOREIGN KEY REFERENCES Usuarios(IdUsuario)
+	,NomePaciente VARCHAR(100) NOT NULL
+	,RG INT UNIQUE NOT NULL
+	,CPF INT UNIQUE NOT NULL
+	,DataNascimento VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Consultas
+(
+
+	IdConsulta INT PRIMARY KEY IDENTITY
+	,IdPaciente INT FOREIGN KEY REFERENCES Pacientes(IdPaciente)
+	,IdMedico INT FOREIGN KEY REFERENCES Medicos(IdMedico)
+	,IdStatusConsulta INT FOREIGN KEY REFERENCES StatusConsulta(IdStatusConsulta)
+	,DataConsulta VARCHAR(100) NOT NULL
+	,HroConsulta VARCHAR(50) NOT NULL
+	,DescricaoConsulta VARCHAR(200)
+
+);
+
+ --SELECT * FROM TiposUsuarios;
+ --SELECT * FROM Usuarios;
+ --SELECT * FROM Medicos;
+ --SELECT * FROM Consultas;
+ --SELECT * FROM Clinica;
+ --SELECT * FROM Pacientes; 
+ --SELECT * FROM StatusConsulta;
+ --SELECT * FROM Especialidades;
