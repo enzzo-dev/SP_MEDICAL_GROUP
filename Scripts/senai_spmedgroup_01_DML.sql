@@ -2,7 +2,7 @@ USE Medical_GROUP;
 
 --INSERINDO DADOS NA TABELA DOS TIPOS DE USUÁRIOS
 INSERT INTO TiposUsuarios(Nome)
-VALUES ('Administrador'),('Médico'),('Usuario');
+VALUES ('Administrador'),('Médico'),('Paciente');
 
 
 --INSERINDO DADOS NA TABELA DOS USUÁRIOS
