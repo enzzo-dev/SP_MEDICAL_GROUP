@@ -18,10 +18,12 @@ namespace senai_sp_medical_group_WebApi.Repositories
             Usuario usuarioBuscado = ctx.Usuarios.Find(id);
 
             //Verifica se o nome do usuário desejado foi encontrado
-            if(usuarioBuscado.Nome != null)
+            if(usuarioBuscado.Nome != null || usuarioBuscado.Email != null || usuarioBuscado.Senha != null)
             {
                 //Atribui os valores encontrados aos campos existentes
                 usuarioBuscado.Nome = usuarioAtualizado.Nome;
+                usuarioBuscado.Email = usuarioAtualizado.Email;
+                usuarioBuscado.Senha = usuarioAtualizado.Senha;
             }
 
             //Atualiza os usuários que foram solicitados
