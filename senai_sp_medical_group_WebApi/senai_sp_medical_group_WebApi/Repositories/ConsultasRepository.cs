@@ -15,9 +15,12 @@ namespace senai_sp_medical_group_WebApi.Repositories
         {
             Consulta consultaBuscado = ctx.Consultas.Find(id);
 
-            if(consultaBuscado.DescricaoConsulta != null)
+            if(consultaBuscado.DescricaoConsulta != null || consultaBuscado.DataConsulta != null || consultaBuscado.HroConsulta != null || consultaBuscado.IdStatusConsulta != null)
             {
                 consultaBuscado.DescricaoConsulta = consultaAtualizada.DescricaoConsulta;
+                consultaBuscado.DataConsulta = consultaAtualizada.DataConsulta;
+                consultaBuscado.HroConsulta = consultaAtualizada.HroConsulta;
+                consultaBuscado.IdStatusConsulta = consultaAtualizada.IdStatusConsulta;
             }
 
             ctx.Consultas.Update(consultaBuscado);

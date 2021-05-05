@@ -15,9 +15,13 @@ namespace senai_sp_medical_group_WebApi.Repositories
         {
             Clinica clinicaDesejada = ctx.Clinicas.Find(id);
 
-            if(clinicaDesejada.NomeFantasia != null)
+            if(clinicaDesejada.NomeFantasia != null || clinicaDesejada.RazaoSocial != null || clinicaDesejada.Endereco != null || clinicaDesejada.Cnpj != 0 || clinicaDesejada.HroFuncionamento != null)
             {
                 clinicaDesejada.NomeFantasia = clinicaAtualizada.NomeFantasia;
+                clinicaDesejada.RazaoSocial = clinicaAtualizada.RazaoSocial;
+                clinicaDesejada.Endereco = clinicaAtualizada.Endereco;
+                clinicaDesejada.Cnpj = clinicaAtualizada.Cnpj;
+                clinicaDesejada.HroFuncionamento = clinicaAtualizada.HroFuncionamento;
             }
 
             ctx.Clinicas.Update(clinicaDesejada);

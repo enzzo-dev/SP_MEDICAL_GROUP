@@ -15,9 +15,12 @@ namespace senai_sp_medical_group_WebApi.Repositories
         {
             Medico medicoBuscado = ctx.Medicos.Find(id);
 
-            if(medicoBuscado.NomeMedico != null)
+            if(medicoBuscado.NomeMedico != null || medicoBuscado.Crm != null || medicoBuscado.IdClinica != null || medicoBuscado.IdEspecialidade != null)
             {
                 medicoBuscado.NomeMedico = medicoAtualizado.NomeMedico;
+                medicoBuscado.Crm = medicoAtualizado.Crm;
+                medicoBuscado.IdClinica = medicoAtualizado.IdClinica;
+                medicoBuscado.IdEspecialidade = medicoAtualizado.IdEspecialidade;
             }
 
             ctx.Medicos.Update(medicoBuscado);
