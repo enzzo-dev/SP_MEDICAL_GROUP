@@ -547,6 +547,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "SpMedical.ListarMinhasConsultas()",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/consulta/minhas-consultas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consulta",
+								"minhas-consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SpMedical.AtualizarDescriçãoConsulta()",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/consulta/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"consulta",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

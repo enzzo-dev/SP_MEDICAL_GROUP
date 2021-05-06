@@ -110,7 +110,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         }
 
         [Authorize(Roles = "2,3")]
-        [HttpGet("Minhas")]
+        [HttpGet("minhas-consultas")]
         public IActionResult GetMy()
         {
             try
