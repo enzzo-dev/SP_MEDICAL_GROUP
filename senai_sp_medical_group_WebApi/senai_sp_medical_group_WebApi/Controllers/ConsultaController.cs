@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Interfaces;
 using senai_sp_medical_group_WebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using senai_sp_medical_group_WebApi.ViewModels;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace senai_sp_medical_group_WebApi.Controllers
 {
@@ -22,6 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -36,6 +40,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(Consulta novaConsulta)
         {
@@ -53,6 +58,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
         public IActionResult Put(int id , Consulta consultaAtualizada)
         {
@@ -69,6 +75,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -82,6 +89,45 @@ namespace senai_sp_medical_group_WebApi.Controllers
             {
 
                 return BadRequest(ex);
+            }
+        }
+
+        [Authorize(Roles = "3")]
+        [HttpPatch("{id}")]
+        public IActionResult Caminho(int id, ConsultaViewModel atualizarConsulta)
+        {
+            try
+            {
+                _consultaRepository.AtualizarDescricao(id, atualizarConsulta);
+
+                return StatusCode(204);
+            }
+            catch ( Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [Authorize(Roles = "2,3")]
+        [HttpGet("Minhas")]
+        public IActionResult GetMy()
+        {
+            try
+            {
+                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                return Ok(_consultaRepository.ListarConsultas(idUsuario));
+
+
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Não é possível mostrar as consultas sem logar",
+                    erro
+                });
             }
         }
     }

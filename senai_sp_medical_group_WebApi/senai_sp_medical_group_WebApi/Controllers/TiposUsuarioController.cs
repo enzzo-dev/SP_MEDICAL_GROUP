@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace senai_sp_medical_group_WebApi.Controllers
 {
@@ -26,6 +27,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// Método Get irã listar todos os tipos de usuários cadastrados no sistema
         /// </summary>
         /// <returns>Lista de objetos em JSON, caso de tudo certo irá retornar um Ok - 202</returns>
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -45,6 +47,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="novoTipoUsuario">Parâmentro que armazena todas as informações da tabela Tipos de usuários</param>
         /// <returns>Irá retornar um StatusCode - 202</returns>
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(TiposUsuario novoTipoUsuario)
         {
@@ -67,6 +70,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// <param name="id">Parâmetro utilizado para encontrar o usuário solicitado</param>
         /// <param name="tiposUsuariosAtualizado">Um novo objeto que irá armazenar as novas informações cadastradas</param>
         /// <returns>Irá retornar o objeto atualizado com o StatusCode de 204</returns>
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, TiposUsuario tiposUsuariosAtualizado)
         {
@@ -88,6 +92,8 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="id">Parâmentro utilizados para encontrar o usuário desejado</param>
         /// <returns>Deleta o usuário e se tudo correr bem irá retornar um StatusCode de 204</returns>
+        
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

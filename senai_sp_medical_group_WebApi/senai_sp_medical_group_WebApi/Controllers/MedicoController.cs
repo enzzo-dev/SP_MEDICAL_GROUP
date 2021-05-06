@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Repositories;
 using senai_sp_medical_group_WebApi.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace senai_sp_medical_group_WebApi.Controllers
 {
@@ -26,6 +27,8 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// Método GET que lista todos os médicos cadastrados no banco de dados
         /// </summary>
         /// <returns>Caso dê tudo certo irá retornar o StatusCode - OK - 201</returns>
+        
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -45,6 +48,8 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="novoMedico"></param>
         /// <returns>Caso dê tudo certo retorna um StatusCode - 202</returns>
+        
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(Medico novoMedico)
         {
@@ -67,6 +72,8 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// <param name="id">Parâmentro utilizado para identificar os médicos no banco de dados</param>
         /// <param name="medicoAtualizado">Objeto que irá armazenar as novas informações do médico desejado</param>
         /// <returns>Retorna um StatusCode - 204 caso dê tudo certo</returns>
+        
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, Medico medicoAtualizado)
         {
@@ -88,6 +95,8 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="id">Parâmetro utilizado para encontrar o médico desejado</param>
         /// <returns>Retorna um StatusCode 204 caso dê tudo certo</returns>
+        
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

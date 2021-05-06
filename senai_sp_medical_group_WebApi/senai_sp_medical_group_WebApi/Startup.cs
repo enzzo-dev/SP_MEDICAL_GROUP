@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
+using Microsoft.IdentityModel.Tokens;
 
 namespace senai_sp_medical_group_WebApi
 {
@@ -40,6 +41,40 @@ namespace senai_sp_medical_group_WebApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+            });
+
+            //Forma de autenticação será por jwtBearer
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+            })
+
+            .AddJwtBearer("JwtBearer", options => 
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //Emissor
+                    ValidateIssuer = true,
+
+                    //Quem está validadando
+                    ValidateAudience = true,
+
+                    //Expiração do token será validiado
+                    ValidateLifetime = true,
+
+                    //Criptografia
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("MedicalGroup_chave_de_autenticacao")),
+
+                    //Expiração do Token
+                    ClockSkew = TimeSpan.FromHours(2),
+
+                    //De onde está vindo
+                    ValidIssuer = "SpMedical.WebApi",
+
+                    //De onde está indo
+                    ValidAudience = "SpMedical.WebApi"
+                };
             });
         }
 

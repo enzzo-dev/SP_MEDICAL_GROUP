@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Interfaces;
 using senai_sp_medical_group_WebApi.Contexts;
+using senai_sp_medical_group_WebApi.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace senai_sp_medical_group_WebApi.Repositories
 {
@@ -47,6 +49,85 @@ namespace senai_sp_medical_group_WebApi.Repositories
         public List<Consulta> ListarTodos()
         {
             return ctx.Consultas.ToList();
+        }
+
+        public void AtualizarDescricao(int id, ConsultaViewModel atualizarDescricao)
+        {
+            Consulta consultaBuscada = ctx.Consultas.Find(id);
+
+            if (atualizarDescricao.DescricaoConsulta != null)
+            {
+                consultaBuscada.DescricaoConsulta = atualizarDescricao.DescricaoConsulta;
+            }
+
+            ctx.Consultas.Update(consultaBuscada);
+
+            ctx.SaveChanges();
+        }
+
+        public List<Consulta> ListarConsultas(int id)
+        {
+            return ctx.Consultas
+
+              .Include(c => c.IdPacienteNavigation)
+
+              .Include(c => c.IdMedicoNavigation)
+
+              .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
+
+              .Include(c => c.IdStatusConsultaNavigation)
+
+              .Select(c => new Consulta
+              {
+                  IdConsulta = c.IdConsulta,
+                  DataConsulta = c.DataConsulta,
+                  DescricaoConsulta = c.DescricaoConsulta,
+
+                  IdPacienteNavigation = new Paciente
+                  {
+                      IdPaciente = c.IdPacienteNavigation.IdPaciente,
+                      IdUsuario = c.IdPacienteNavigation.IdUsuario,
+                      NomePaciente = c.IdPacienteNavigation.NomePaciente,
+                  },
+
+                  IdMedicoNavigation = new Medico
+                  {
+                      IdMedico = c.IdMedicoNavigation.IdMedico,
+                      IdUsuario = c.IdMedicoNavigation.IdUsuario,
+                      NomeMedico = c.IdMedicoNavigation.NomeMedico,
+                      Crm = c.IdMedicoNavigation.Crm,
+
+                      IdEspecialidadeNavigation = new Especialidade
+                      {
+                          IdEspecialidade = c.IdMedicoNavigation.IdEspecialidadeNavigation.IdEspecialidade,
+                          DescricaoEspec = c.IdMedicoNavigation.IdEspecialidadeNavigation.DescricaoEspec
+                      }
+                  },
+
+                  IdStatusConsultaNavigation = new StatusConsultum                  {
+                      IdStatusConsulta = c.IdStatusConsultaNavigation.IdStatusConsulta,
+                      DescricaoStatus = c.IdStatusConsultaNavigation.DescricaoStatus
+                  }
+
+              })
+
+              .Where(c => c.IdPacienteNavigation.IdUsuario == id || c.IdMedicoNavigation.IdUsuario == id)
+
+              .ToList();
+        }
+
+        public void AtualizarStatus(int id, int idStatus)
+        {
+            Consulta consultaBuscada = ctx.Consultas.Find(id);
+
+            if (consultaBuscada.IdStatusConsulta != null)
+            {
+                consultaBuscada.IdStatusConsulta = idStatus;
+            }
+
+            ctx.Consultas.Update(consultaBuscada);
+
+            ctx.SaveChanges();
         }
     }
 }

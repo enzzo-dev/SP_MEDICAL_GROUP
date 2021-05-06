@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Interfaces;
 using senai_sp_medical_group_WebApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace senai_sp_medical_group_WebApi.Controllers
 {
@@ -22,6 +23,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _clinicaRepository = new ClinicaRepository();
         }
 
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -37,6 +39,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(Clinica novaClincia)
         {
@@ -53,6 +56,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
         public IActionResult Put(int id, Clinica clinicaAtualizada)
         {
@@ -69,6 +73,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

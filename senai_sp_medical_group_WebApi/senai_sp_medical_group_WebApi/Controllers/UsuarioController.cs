@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Interfaces;
@@ -33,6 +34,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         ///Lista todos os tipos de usuários cadastrados no sistema
         /// </summary>
         /// <returns>Uma lista de usuários e um status code Ok - 200</returns>
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -53,6 +55,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="novoUsuario">Obejto para instanciar um novo objeto usuário com todas as suas propriedades</param>
         /// <returns>Retorna um status code de 201 - está tudo certo</returns>
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Post(Usuario novoUsuario)
         {
@@ -75,6 +78,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// <param name="id">id informado para achar o usuário desejado</param>
         /// <param name="usuarioAtualizado">Objeto para armazenar as novas informações</param>
         /// <returns>Retorna um Satus code informando se tudo ocorreu bem, caso não tenha ocorrido retorna um bad request</returns>
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
         public IActionResult PutAtualizar(int id, Usuario usuarioAtualizado)
         {
@@ -96,6 +100,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="id">parâmetro usado para encontrar o usuário desejado</param>
         /// <returns>Deleta o usuário desejado caso você tenha permissão e um StatusCode caso dê certo, caso contrário gera um BadRequest</returns>
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

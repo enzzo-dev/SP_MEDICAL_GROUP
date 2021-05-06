@@ -15,7 +15,7 @@
             Método que nos permite cadastrar uma nova especialidade para médicos
             </summary>
             <param name="novaEspecialidade">Objeto que irá carregar as informações da nova especialidade</param>
-            <returns></returns>
+            <returns>Lista de especialidades criadas e um StatusCode</returns>
         </member>
         <member name="M:senai_sp_medical_group_WebApi.Controllers.EspecialidadeController.Put(System.Int32,senai_sp_medical_group_WebApi.Domains.Especialidade)">
             <summary>
@@ -31,6 +31,13 @@
             </summary>
             <param name="id">Parâmentro que será utilizado para encontrar o tipo de especialidade desejado</param>
             <returns>StatusCode de sucesso caso seja excluido com sucesso</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.LoginController.Post(senai_sp_medical_group_WebApi.ViewModels.LoginViewModel)">
+            <summary>
+            Método que irá logar o usuário ao sistema com suas devidas permissões
+            </summary>
+            <param name="login"></param>
+            <returns></returns>
         </member>
         <member name="M:senai_sp_medical_group_WebApi.Controllers.MedicoController.Get">
             <summary>
