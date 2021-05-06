@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 
 namespace senai_sp_medical_group_WebApi
 {
@@ -19,6 +22,7 @@ namespace senai_sp_medical_group_WebApi
         {
             services
                 .AddControllers()
+
                 //Adicionando o serviço controllers
                     .AddNewtonsoftJson(options =>
                     {
@@ -27,6 +31,16 @@ namespace senai_sp_medical_group_WebApi
                         //Ignoramos os valores nulos 
                         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpMedical.webApi", Version = "v1" });
+
+                //Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +50,13 @@ namespace senai_sp_medical_group_WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpMedical.webApi");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

@@ -22,6 +22,10 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _especialidadeRepository = new EspecialidadesRepository();
         }
 
+        /// <summary>
+        /// Método utilizado para listar todas as especialidades dos médicos cadastradas
+        /// </summary>
+        /// <returns>As especialidades cadastradas</returns>
         [HttpGet]
         public IActionResult Get()
         {
@@ -36,6 +40,11 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Método que nos permite cadastrar uma nova especialidade para médicos
+        /// </summary>
+        /// <param name="novaEspecialidade">Objeto que irá carregar as informações da nova especialidade</param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Post(Especialidade novaEspecialidade)
         {
@@ -52,6 +61,12 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Método que nos permite alterar as especialidades dos médicos conforme a necessidade
+        /// </summary>
+        /// <param name="id">Parâmetro que será utilizado para encontrar a especialidade que deseja ser alterada</param>
+        /// <param name="especialidadeAtualizada">Objeto que irá recarregar as novas informações a serem adicionadas</param>
+        /// <returns>Em caso de sucesso nos retorna um StatusCode de Sucesso</returns>
         [HttpPut("{id}")]
         public IActionResult Put(int id , Especialidade especialidadeAtualizada)
         {
@@ -68,6 +83,11 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Método que será utilizado para excluir um tipo de especialidade cadastrada
+        /// </summary>
+        /// <param name="id">Parâmentro que será utilizado para encontrar o tipo de especialidade desejado</param>
+        /// <returns>StatusCode de sucesso caso seja excluido com sucesso</returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

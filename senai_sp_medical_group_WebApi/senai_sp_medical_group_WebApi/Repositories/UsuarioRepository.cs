@@ -60,5 +60,11 @@ namespace senai_sp_medical_group_WebApi.Repositories
             //Lista os usuários existentes
            return ctx.Usuarios.ToList();
         }
+
+        public Usuario Login(string email, string senha)
+        {
+            //Retorna o usuário Encontrado atráves do email e da senha
+            return ctx.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
+        }
     }
 }

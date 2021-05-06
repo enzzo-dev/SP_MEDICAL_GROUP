@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>senai_sp_medical_group_WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.EspecialidadeController.Get">
+            <summary>
+            Método utilizado para listar todas as especialidades dos médicos cadastradas
+            </summary>
+            <returns>As especialidades cadastradas</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.EspecialidadeController.Post(senai_sp_medical_group_WebApi.Domains.Especialidade)">
+            <summary>
+            Método que nos permite cadastrar uma nova especialidade para médicos
+            </summary>
+            <param name="novaEspecialidade">Objeto que irá carregar as informações da nova especialidade</param>
+            <returns></returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.EspecialidadeController.Put(System.Int32,senai_sp_medical_group_WebApi.Domains.Especialidade)">
+            <summary>
+            Método que nos permite alterar as especialidades dos médicos conforme a necessidade
+            </summary>
+            <param name="id">Parâmetro que será utilizado para encontrar a especialidade que deseja ser alterada</param>
+            <param name="especialidadeAtualizada">Objeto que irá recarregar as novas informações a serem adicionadas</param>
+            <returns>Em caso de sucesso nos retorna um StatusCode de Sucesso</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.EspecialidadeController.Delete(System.Int32)">
+            <summary>
+            Método que será utilizado para excluir um tipo de especialidade cadastrada
+            </summary>
+            <param name="id">Parâmentro que será utilizado para encontrar o tipo de especialidade desejado</param>
+            <returns>StatusCode de sucesso caso seja excluido com sucesso</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.MedicoController.Get">
+            <summary>
+            Método GET que lista todos os médicos cadastrados no banco de dados
+            </summary>
+            <returns>Caso dê tudo certo irá retornar o StatusCode - OK - 201</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.MedicoController.Post(senai_sp_medical_group_WebApi.Domains.Medico)">
+            <summary>
+            Método POST que permite cadastrar novos médicos no Banco de dados
+            </summary>
+            <param name="novoMedico"></param>
+            <returns>Caso dê tudo certo retorna um StatusCode - 202</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.MedicoController.Put(System.Int32,senai_sp_medical_group_WebApi.Domains.Medico)">
+            <summary>
+            Método POST que permite atualizar as informações dos medicos cadastrados
+            </summary>
+            <param name="id">Parâmentro utilizado para identificar os médicos no banco de dados</param>
+            <param name="medicoAtualizado">Objeto que irá armazenar as novas informações do médico desejado</param>
+            <returns>Retorna um StatusCode - 204 caso dê tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.MedicoController.Delete(System.Int32)">
+            <summary>
+            Método DELETE permite deletar um médico cadastrado no banco de dados
+            </summary>
+            <param name="id">Parâmetro utilizado para encontrar o médico desejado</param>
+            <returns>Retorna um StatusCode 204 caso dê tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.PacienteController.Get">
+            <summary>
+            Método GET nos lista os pacientes que estão cadastrados na Banco de dados
+            </summary>
+            <returns>Retorna uma lista de pacientes e um StatusCode caso de certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.PacienteController.Post(senai_sp_medical_group_WebApi.Domains.Paciente)">
+            <summary>
+            Método POST nos permite cadastrar um novo paciente preenchendo todos os seus dados
+             </summary>
+             <returns>Retorna um StatusCode caso de tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.PacienteController.Put(System.Int32,senai_sp_medical_group_WebApi.Domains.Paciente)">
+            <summary>
+            Método PUT nos permite Atualizar os dados dos pacientes cadastrados no Banco de dados
+            </summary>
+            <param name="id">Parâmetro utilizado para encontrar o paciente desejado</param>
+            <param name="pacienteAtualizado">Objeto que irá armazenar as novas informações dos pacientes</param>
+            <returns>Retorna um StatusCode 204 caso dê tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.PacienteController.Delete(System.Int32)">
+            <summary>
+            Método DELETE permite o adminitrados do sistema a excluir qualquer paciente cadastrado no sistema
+            </summary>
+            <param name="id">Parâmetro utilizado para encontrar o paciente desejado</param>
+            <returns>Exclui o Paciente Desejado e retorna um StatusCode - 204 caso dê tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.TiposUsuarioController.Get">
+            <summary>
+            Método Get irã listar todos os tipos de usuários cadastrados no sistema
+            </summary>
+            <returns>Lista de objetos em JSON, caso de tudo certo irá retornar um Ok - 202</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.TiposUsuarioController.Post(senai_sp_medical_group_WebApi.Domains.TiposUsuario)">
+            <summary>
+            Método POST possibilita o cadastro de usuários no sistema via JSON
+            </summary>
+            <param name="novoTipoUsuario">Parâmentro que armazena todas as informações da tabela Tipos de usuários</param>
+            <returns>Irá retornar um StatusCode - 202</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.TiposUsuarioController.Put(System.Int32,senai_sp_medical_group_WebApi.Domains.TiposUsuario)">
+            <summary>
+            Método Put permite a atualilzação de tipos de usuáriuos já existentes no banco de dados
+            </summary>
+            <param name="id">Parâmetro utilizado para encontrar o usuário solicitado</param>
+            <param name="tiposUsuariosAtualizado">Um novo objeto que irá armazenar as novas informações cadastradas</param>
+            <returns>Irá retornar o objeto atualizado com o StatusCode de 204</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.TiposUsuarioController.Delete(System.Int32)">
+            <summary>
+            Método Delete proporciona a exclusão de um tipo de usuário já existente no banco de dados do sistema
+            </summary>
+            <param name="id">Parâmentro utilizados para encontrar o usuário desejado</param>
+            <returns>Deleta o usuário e se tudo correr bem irá retornar um StatusCode de 204</returns>
+        </member>
+        <member name="P:senai_sp_medical_group_WebApi.Controllers.UsuarioController._usuarioRepository">
+            <summary>
+            O objeto _usuarioRepository recebe todos os métodos criados na interface
+            </summary>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.UsuarioController.#ctor">
+            <summary>
+            Instancia o objeto _usuarioRepossitoey para que haja a referência aos métodos
+            </summary>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.UsuarioController.Get">
+             <summary>
+            Lista todos os tipos de usuários cadastrados no sistema
+             </summary>
+             <returns>Uma lista de usuários e um status code Ok - 200</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.UsuarioController.Post(senai_sp_medical_group_WebApi.Domains.Usuario)">
+            <summary>
+            Método POST irá Cadastrar usuários via JSON com o POSTMAN
+            </summary>
+            <param name="novoUsuario">Obejto para instanciar um novo objeto usuário com todas as suas propriedades</param>
+            <returns>Retorna um status code de 201 - está tudo certo</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.UsuarioController.PutAtualizar(System.Int32,senai_sp_medical_group_WebApi.Domains.Usuario)">
+            <summary>
+            Atualiza um usuários que já está cadastrado no sistema
+            </summary>
+            <param name="id">id informado para achar o usuário desejado</param>
+            <param name="usuarioAtualizado">Objeto para armazenar as novas informações</param>
+            <returns>Retorna um Satus code informando se tudo ocorreu bem, caso não tenha ocorrido retorna um bad request</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Controllers.UsuarioController.Delete(System.Int32)">
+            <summary>
+            Deleta um usuário já cadastrado no sistema
+            </summary>
+            <param name="id">parâmetro usado para encontrar o usuário desejado</param>
+            <returns>Deleta o usuário desejado caso você tenha permissão e um StatusCode caso dê certo, caso contrário gera um BadRequest</returns>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Clinica">
+            <summary>
+            Classe que representa uma rede de clínicas disponiveis para exames, cada uma com seu médico
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Consulta">
+            <summary>
+            Classe que representa as consultas marcadas peos pacientews onde tem o médico desejado, horários, descrição da consulta
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Especialidade">
+            <summary>
+            Classe que representa a especialidade de cada médico
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Medico">
+            <summary>
+            Classe que represente os usuários que se cadastraram como médicos e suas consultas disponiveis.
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Paciente">
+            <summary>
+            Classe que representa o usuário que se cadastrou e é um paciente
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.StatusConsultum">
+            <summary>
+            Classe que representa o estado em que a consulta marcada está como: Marcada, Cancelada, Efetuada
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.TiposUsuario">
+            <summary>
+            Classe que representa tipos de usuários existentes para cadastro como: Médico, Administrador, Paciente
+            </summary>
+        </member>
+        <member name="T:senai_sp_medical_group_WebApi.Domains.Usuario">
+            <summary>
+            Classe que representa o login/cadastro de usuáiso no sistema
+            </summary>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Interfaces.IUsuarioRepository.ListarTodos">
+            <summary>
+            Lista de usuáriso cadastrados no banco de dados
+            </summary>
+            <returns>Irá retornar uma lista de objetos com os usuários cadastrados no banco de dados</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Interfaces.IUsuarioRepository.Cadastrar(senai_sp_medical_group_WebApi.Domains.Usuario)">
+            <summary>
+            Método irá criar um novo usuário no Banco de dados
+            </summary>
+            <param name="novoUsuario">Usuario que será cadastrados</param>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Interfaces.IUsuarioRepository.Atualizar(System.Int32,senai_sp_medical_group_WebApi.Domains.Usuario)">
+            <summary>
+            Método irá atualizar um usuário desejado e já existente
+            </summary>
+            <param name="id">Id para identificação dos usuários que será passado por url</param>
+            <param name="usuarioAtualizado">váriavel que irá conter a alteração desejada</param>
+            <returns>Irá retornar um objeto com o usuário que foi desejado a alteração</returns>
+        </member>
+        <member name="M:senai_sp_medical_group_WebApi.Interfaces.IUsuarioRepository.Deletar(System.Int32)">
+            <summary>
+            Método irá deletar um usuário desejado que foi informado pelo id
+            </summary>
+            <param name="id">id que será utilizado para a identificação do usuário desejado</param>
+        </member>
+    </members>
+</doc>

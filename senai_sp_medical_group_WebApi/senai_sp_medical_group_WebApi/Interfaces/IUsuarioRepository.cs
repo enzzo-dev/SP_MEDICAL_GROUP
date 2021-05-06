@@ -33,5 +33,8 @@ namespace senai_sp_medical_group_WebApi.Interfaces
         /// </summary>
         /// <param name="id">id que será utilizado para a identificação do usuário desejado</param>
         void Deletar(int id);
+
+        //Método para verificação de identidade
+        Usuario Login(string email, string senha);
     }
 }

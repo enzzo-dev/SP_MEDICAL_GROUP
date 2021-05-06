@@ -65,3 +65,5 @@ D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_W
 D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_WebApi\obj\Debug\net5.0\ref\senai_sp_medical_group_WebApi.dll
 D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_WebApi\obj\Debug\net5.0\senai_sp_medical_group_WebApi.pdb
 D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_WebApi\obj\Debug\net5.0\senai_sp_medical_group_WebApi.genruntimeconfig.cache
+D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_WebApi\bin\Debug\net5.0\senai_sp_medical_group_WebApi.xml
+D:\Senai\SP_MEDICAL_GROUP\senai_sp_medical_group_WebApi\senai_sp_medical_group_WebApi\obj\Debug\net5.0\senai_sp_medical_group_WebApi.xml
