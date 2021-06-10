@@ -53,7 +53,7 @@ html,body{
 }
 
 #nav.active .menu{
-   height: calc(28vh - 50px);
+   height: calc(27vh - 50px);
    visibility: visible;
    overflow-y: hidden;
 }
@@ -104,7 +104,7 @@ html,body{
 .menu a{
   text-decoration: none;
   color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Do Hyeon', sans-serif;
   font-weight: 300;
   font-size: 18px;
   display: block;
@@ -261,6 +261,7 @@ html,body{
   border-radius: 20px;
   font-family: 'Bebas Neue', cursive;
   font-size: 24px;
+  cursor: pointer;
 }
 
 .banner-login{

@@ -117,8 +117,8 @@ export default function ConsultaMedi(){
                 <table>
                     <thead>
                         <tr>
-                            <th>Paciente</th>
                             <th>Médico</th>
+                            <th>Pacientes</th>
                             <th>Especialidade</th>
                             <th>Data</th>
                             <th>Horário</th>
@@ -131,8 +131,8 @@ export default function ConsultaMedi(){
                             listaConsultas.map((consulta) => {
                                 return(
                                     <tr key={consulta.idConsulta}>
-                                        <td>{consulta.idPacienteNavigation.nomePaciente}</td>
                                         <td>{consulta.idMedicoNavigation.nomeMedico}</td>
+                                        <td>{consulta.idPacienteNavigation.nomePaciente}</td>
                                         <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspec}</td>
                                         <td>{consulta.dataConsulta}</td>
                                         <td>{consulta.hroConsulta}</td>

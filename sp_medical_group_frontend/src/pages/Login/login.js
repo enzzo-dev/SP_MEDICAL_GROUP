@@ -57,7 +57,7 @@ class Login extends Component{
                     break;
 
                     default:
-                        this.props.history.push('/dfsdf')
+                        this.props.history.push('/')
                     break;
                 }
             }

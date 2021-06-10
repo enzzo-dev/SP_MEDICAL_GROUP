@@ -25,7 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "2")]
         [HttpGet]
         public IActionResult Get()
         {
