@@ -33,6 +33,18 @@ namespace senai_sp_medical_group_WebApi
                         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });
 
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                                                                    .AllowAnyHeader()
+                                                                    .AllowAnyMethod()
+                                                                    .AllowCredentials();
+                    }
+                    );
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpMedical.webApi", Version = "v1" });
@@ -93,7 +105,17 @@ namespace senai_sp_medical_group_WebApi
                 c.RoutePrefix = string.Empty;
             });
 
+            
+
             app.UseRouting();
+
+            //Habilita a autenticação
+            app.UseAuthentication();
+
+            //Habilita a autorização
+            app.UseAuthorization();
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

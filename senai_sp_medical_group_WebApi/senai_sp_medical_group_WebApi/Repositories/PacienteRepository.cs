@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using senai_sp_medical_group_WebApi.Domains;
 using senai_sp_medical_group_WebApi.Interfaces;
 using senai_sp_medical_group_WebApi.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace senai_sp_medical_group_WebApi.Repositories
 {
@@ -43,7 +44,20 @@ namespace senai_sp_medical_group_WebApi.Repositories
 
         public List<Paciente> ListarTodos()
         {
-            return ctx.Pacientes.ToList();
+            return ctx.Pacientes
+                 .Include(p => p.IdUsuarioNavigation)
+                 .Select(p => new Paciente
+                 {
+                     IdUsuario = p.IdUsuario,
+                     IdPaciente = p.IdPaciente,
+                     NomePaciente = p.NomePaciente,
+                     DataNascimento = p.DataNascimento,
+                     Rg = p.Rg,
+                     Cpf = p.Cpf
+                 })
+
+                 .ToList();
+
         }
     }
 }

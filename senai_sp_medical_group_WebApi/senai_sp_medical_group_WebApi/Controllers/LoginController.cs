@@ -51,7 +51,9 @@ namespace senai_sp_medical_group_WebApi.Controllers
 
                     new Claim(JwtRegisteredClaimNames.Jti, userLogin.IdUsuario.ToString()),
 
-                    new Claim(ClaimTypes.Role, userLogin.IdTipoUsuario.ToString())
+                    new Claim(ClaimTypes.Role, userLogin.IdTipoUsuario.ToString()),
+
+                    new Claim("role", userLogin.IdTipoUsuario.ToString())
                 
                 };
 

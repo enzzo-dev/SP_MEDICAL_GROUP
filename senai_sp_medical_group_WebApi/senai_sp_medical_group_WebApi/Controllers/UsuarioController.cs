@@ -34,7 +34,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         ///Lista todos os tipos de usuários cadastrados no sistema
         /// </summary>
         /// <returns>Uma lista de usuários e um status code Ok - 200</returns>
-        [Authorize(Roles = "1")]
+        
         [HttpGet]
         public IActionResult Get()
         {
