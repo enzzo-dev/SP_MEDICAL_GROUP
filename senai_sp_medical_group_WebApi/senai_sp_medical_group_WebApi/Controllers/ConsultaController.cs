@@ -25,7 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
-        [Authorize(Roles = "2")]
+        [Authorize(Roles = "2,3")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -58,7 +58,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             
         }
 
-        [Authorize(Roles = "1")]
+        [Authorize(Roles = "1,2")]
         [HttpPut("{id}")]
         public IActionResult Put(int id , Consulta consultaAtualizada)
         {
@@ -92,7 +92,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "3")]
+        [Authorize(Roles = "2")]
         [HttpPatch("{id}")]
         public IActionResult Caminho(int id, ConsultaViewModel atualizarConsulta)
         {
@@ -108,16 +108,15 @@ namespace senai_sp_medical_group_WebApi.Controllers
                 return BadRequest(ex);
             }
         }
-
-        [Authorize(Roles = "2,3")]
-        [HttpGet("minhas-consultas")]
-        public IActionResult GetMy()
+        [Authorize]
+        [HttpGet("minhas-consultas/{id}")]
+        public IActionResult GetMy(string id)
         {
             try
             {
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+                 id = HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
 
-                return Ok(_consultaRepository.ListarConsultas(idUsuario));
+                return Ok(_consultaRepository.ListarConsultas(id));
 
 
             }

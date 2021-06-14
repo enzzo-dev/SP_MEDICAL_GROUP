@@ -13,7 +13,7 @@ html,body{
 .App-header{
   width: 100%;
   height: 50px;
-  background-color: rgba(245, 84, 84, 1);
+  background-color: rgb(209, 73, 73);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +23,7 @@ html,body{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin: 0 30px;
   font-size: 14px;
-  color: rgb(52, 42, 247);
+  color: rgb(255, 255, 255);
 }
 
 
@@ -286,6 +286,10 @@ html,body{
 
 /* INÍCIO DA ESTILIZAÇÃO DA TELA DE MÉDICOS*/
 
+body{
+  background-color: whitesmoke;
+}
+
 .logout{
   font-size: 18px;
   font-weight: 300;
@@ -294,14 +298,16 @@ html,body{
 }
 
 .section-consultas{
-  width: 100%;
-  height: 600px;
-  background-color: rgb(220, 220, 220);
+  width: 90%;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  margin: 0 100px;
+  padding: 20px 20px;
 }
 
 .section-consultas h1{
   text-align: center;
-  padding-top: 15px;
+  padding: 15px 0;
   font-family: 'Bebas Neue',cursive;
   font-size: 36px;
   text-decoration: underline;
@@ -312,24 +318,177 @@ html,body{
   width: 100%;
   height: auto;
   border-collapse: collapse;
-  margin-top: 50px;
+  margin: 50px 0;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
 .section-consultas th{
-  border-bottom: 2px solid rgb(105, 102, 196);
-  border-right: 2px solid rgb(105, 102, 196);
-  border-left: 2px solid rgb(105, 102, 196);
+  /* background-color: rgb(149, 146, 248); */
+  background-color: rgba(245, 84, 84, 1);
+  color: white;
   padding: 5px 20px;
   text-align: center;
-  
+  width: 80px;
 }
 
 .section-consultas td{
   width: 80px;
-  border-bottom: 1px solid rgb(105, 102, 196);
+  background-color: rgb(237, 237, 237);
   padding: 15px 10px;
   text-align: center;
   font-family: 'Do Hyeon', sans-serif;
+  border-right: 1px solid rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.section-editar h1{
+    text-align: center;
+    padding: 25px 0;
+    font-family: 'Bebas Neue',cursive;
+    font-size: 36px;
+    text-decoration: underline;
+    letter-spacing: 1px;
+}
+
+.section-editar{
+  width: 90%;
+  height: 340px;
+  background-color: rgb(255, 255, 255);
+  margin: 80px 100px;
+  padding: 0 20px;
+}
+
+.Editar{
+  width: 70px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: 'Bebas Neue',cursive;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.Editar:hover{
+  background-color: rgb(177, 95, 243);
+  color: black;
+  transition: 0.3s;
+}
+
+.form-alterar{
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  margin: 80px 370px;
+}
+
+.editar{
+  display: flex;
+  flex-direction: row;
+  margin: 0 90px;
+}
+
+.form-alterar input{
+  width: 700px;
+  height: 40px;
+  padding: 10px 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: none;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.btn-alterar{
+  width: 350px;
+  height: 40px;
+  border: none;
+  margin: 40px 180px;
+  border-radius: 15px;
+  font-family: 'Bebas Neue', cursive;
+  letter-spacing: 1px;
+  font-size: 18px;
+  background-color: rgb(175, 165, 238);
+  cursor: pointer;
+}
+
+/*FIM DA ESTILIZAÇÃO DA TELA DE MÉDICOS*/
+
+/*INÍCIO DA ESTILIZAÇÃO DA TELA DE ADMINISTRADOR*/
+.section-cadastrar-consulta{
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  margin: 30px 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-cadastrar-consulta h1{
+  font-size: 36px;
+  font-family: 'Bebas Neue',cursive;
+  letter-spacing: 1px;
+  text-decoration: underline;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cadastrar-consulta{
+  display: flex;
+  flex-direction: column;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+
+.cadastrarConsulta {
+  width:400px;
+}
+
+.cadastrarConsulta input{
+  width: 400px;
+  height: 40px;
+  border: 1px solid black;
+  padding: 5px 15px;
+  font-size: 16px;
+  font-family: 'Bebas Neue',cursive;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.cadastrarConsulta select{
+  width: 400px;
+  height: 40px;
+  border-radius: 20px;
+  color: rgb(136, 136, 136);
+  margin: 10px 0;
+  padding: 0px 15px;
+  font-family: 'Bebas Neue',cursive;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+.cadastrarConsulta h2{
+  margin: 10px 0 ;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  text-align: center;
+}
+
+.cadastrarConsulta button{
+  width: 300px;
+  height: 40px;
+  border: none;
+  margin: 30px 60px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgb(194, 133, 243);
+  color: rgb(255, 255, 255);
+  font-family: 'Bebas Neue',cursive;
+  letter-spacing: 1px;
+  font-size: 18px;
 }

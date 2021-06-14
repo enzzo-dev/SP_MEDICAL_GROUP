@@ -28,7 +28,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <returns>Retorna uma lista de pacientes e um StatusCode caso de certo</returns>
         
-        [Authorize(Roles = "3")]
+        [Authorize(Roles = "1")]
         [HttpGet]
         public IActionResult Get()
         {

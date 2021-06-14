@@ -9,7 +9,7 @@ function App() {
         <Header/>
         <main>
           <div className="Banner">
-            <img  src={Banner}></img>
+            <img  src={Banner} alt="coisas da vida"></img>
             <div className="historia">
                 <h2>Venha fazer história conosco!</h2>
             </div>

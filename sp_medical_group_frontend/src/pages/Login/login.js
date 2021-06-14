@@ -45,7 +45,7 @@ class Login extends Component{
 
                 switch (parseJwt().role) {
                     case '1':
-                        this.props.history.push('/')
+                        this.props.history.push('/administrador')
                         break;
                 
                     case '2':
@@ -87,7 +87,7 @@ class Login extends Component{
                         </form>
                     </div>
                     <div className="banner-login">
-                        <img src={Espaco}></img>
+                        <img src={Espaco} alt='10px' ></img>
                     </div>
                 </section>
             </div>
