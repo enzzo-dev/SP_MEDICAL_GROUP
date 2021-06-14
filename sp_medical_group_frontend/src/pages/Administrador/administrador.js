@@ -48,92 +48,6 @@ import '../../App.css';
 
 //         .catch( (erro) => console.log(erro) )
 //     }
-
-//     /* BUSCAR CONSULTAS  */
-
-//     cadastrarConsulta = (event) => {
-//         event.preventDefault()
-
-//         fetch('http://localhost:5000/api/consulta', {
-//             method : 'POST',
-
-//             body : JSON.stringify(
-//             {
-//                 medicoNome : this.state.medicoNome, pacienteNome : this.state.pacienteNome, horarioConsulta : this.state.horarioConsulta, statusConsulta : this.state.statusConsulta, descricaoConsulta : this.state.descricaoConsulta, dataConsulta : this.state.dataConsulta
-//             }),
-
-//             headers : {
-//                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login') 
-//             }
-//         }) 
-        
-//         .then(console.log('Consulta cadastrada com sucessso'))
-
-//         .then(this.buscarConsultas)
-
-//         .catch(erro => console.log(erro))
-
-//         .then(this.limparCampos)
-//     }
-
-//     atualizarEstadoMedico = async(event) => {
-//         await this.setState({medicoNome : event.target.value})
-
-//         console.log(this.state.medicoNome)
-
-//         event.preventDefault();
-//     }
-
-//     atualizarEstadoPaciente = async(event) => {
-//         await this.setState({pacienteNome : event.target.value})
-
-//         console.log(this.state.pacienteNome)
-
-//         event.preventDefault()
-//     }
-
-//     atualizarEstadoHorario = async(event) => {
-//         await this.setState({horarioConsulta : event.target.value})
-
-//         console.log(this.state.horarioConsulta)
-
-//         event.preventDefault()
-//     }
-    
-
-//     atualizarEstadoStatusConsulta = async(event) => { /* STATUSCONSULTA É UM MÉTODO DIFERENTE DE SE FAZER */
-//         await this.setState({statusConsulta : event.target.value})
-
-//         console.log(this.state.statusConsulta)
-
-//         event.preventDefault()
-//     }
-
-//     atualizarEstadoDescricao = async(event) => {
-//         await this.setState({descricaoConsulta : event.target.value})
-
-//         console.log(this.state.descricaoConsulta)
-
-//         event.preventDefault()
-//     }
-
-//     atualizarEstadoData = async(event) => {
-//         await this.setState({dataConsulta : event.target.value})
-
-//         console.log(this.state.dataConsulta)
-
-//         event.preventDefault()
-//     }
-
-//     componentDidMount(){
-//         this.buscarConsultas()
-//     }
-
-
-//     render(){
-
-
-// }    
 //}
 // export default Admin
 
@@ -182,13 +96,14 @@ import '../../App.css';
         const[senha, setSenha] = useState('')
 
         const[listaUsuarios, setListaUsuarios] = useState([])
+        const[listaTiposUsuarios, setTiposUsuarios] = useState([])
     
         //funções
 
 
         // buscar consultas do usuário (todas consultas - administrador)
         function getConsultas(){
-            axios.get('http://localhost:5000/api/minhas-consultas/' + parseJwt().role , {
+            axios.get('http://localhost:5000/api/minhas-consultas', {
             headers : {
                     'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
                 }
@@ -200,8 +115,23 @@ import '../../App.css';
             })   
             .catch(erro => console.log(erro))
         }
+
+        function getUsers(){
+            axios.get('http://localhost:5000/api/usuario', {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                }
+            })
+
+            .then(resposta => {
+                if(resposta.status === 200)
+                {
+                    setListaUsuarios(resposta.data)
+                    console.log('listando usuários')
+                }
+            })
+        } 
     
-        // buscar médico
         function getMedicos(){
             axios.get('http://localhost:5000/api/medico', {
                 headers : {
@@ -235,8 +165,23 @@ import '../../App.css';
             .catch(erro => console.log(erro))
         }
         
-    
-        // cadastrar consultas
+        function getTypeUser(){
+            axios.get('http://localhost:5000/api/tiposusuario', {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                }
+            })
+            
+            .then(resposta => {
+                if (resposta.status === 200) {
+                    
+                    setTiposUsuarios(resposta.data)
+                }
+            })   
+            .catch(erro => console.log(erro))
+        }
+
+        // Funcionando
         function postConsultas(event){
     
             event.preventDefault()
@@ -280,8 +225,10 @@ import '../../App.css';
     
         // funções para ciclos de vida 
         useEffect( getConsultas, [] )  
-        useEffect( getMedicos, [] ) 
-        useEffect( getPacientes, [] ) 
+        useEffect(getUsers, []) 
+        useEffect(getMedicos, [])
+        useEffect(getPacientes, [])
+        useEffect(getTypeUser, [])
 
         function createUsers(event){
             event.preventDefault()
@@ -300,7 +247,7 @@ import '../../App.css';
             })
 
             .then(resposta => {
-                if(resposta.status === 200){
+                if(resposta.status === 201){
                     console.log('Usuário cadastrado com sucesso')
                 }
             })
@@ -433,57 +380,86 @@ import '../../App.css';
                 <section className="section-cadastrar-consulta">
                         <h1>Cadastrar usuários</h1>
                         <div className="cadastrar-consulta">
-                        <form className="cadastrarConsulta" onSubmit={createUsers}>
-                            <h2>Tipo de usuário</h2>
-                            <select name="idTipoUsuario" 
-                            value={idTipoUsuario} 
-                            onChange={(event) => setIdTipoUsuario(event.target.value)}>
+                            <form className="cadastrarConsulta" onSubmit={createUsers}>
+                                <h2>Tipo de usuário</h2>
+                                <select name="idTipoUsuario" 
+                                value={idTipoUsuario} 
+                                onChange={(event) => setIdTipoUsuario(event.target.value)}>
 
-                                <option value="1">Administrador</option>
-                                {
-                                    listaUsuarios.map(usuarios => {
-                                        return(
-                                            <option key={usuarios.idTipoUsuario} value={usuarios.idTipoUsuario}>
-                                                {usuarios.nome}
-                                            </option>
-                                        )
-                                    })
-                                }
+                                    <option Disabled >----Selecione o tipo de usuario----</option>
+                                    {
+                                        listaTiposUsuarios.map(usuarios => {
+                                            return(
+                                                <option key={usuarios.idTipoUsuario} value={usuarios.idTipoUsuario}>
+                                                    {usuarios.nome}
+                                                </option>
+                                            )
+                                        })
+                                    }
 
-                            </select>
+                                </select>
 
-                            <h2>Nome:</h2>
-                            <input type="text"
-                                value={nome}
-                                onChange={(event) => setNome(event.target.value)}
+                                <h2>Nome:</h2>
+                                <input type="text"
+                                    value={nome}
+                                    onChange={(event) => setNome(event.target.value)}
+                                    required
+                                    placeholder="Digite o nome do usuário:"
+                                    name="name"
+                                />
+
+                                <h2>Email:</h2>
+                                <input type="email"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
                                 required
-                                placeholder="Digite o nome do usuário:"
-                                name="name"
-                            />
+                                placeholder="Digite o email:"
+                                name="email"
+                                />
 
-                            <h2>Email:</h2>
-                            <input type="email"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            required
-                            placeholder="Digite o email:"
-                            name="email"
-                            />
+                                <h2>Senha: </h2>
+                                <input type="password" 
+                                minlength="5"
+                                value={senha}
+                                onChange={(event) => setSenha(event.target.value)}
+                                required
+                                placeholder="Digite a senha:"
+                                name="senha"
+                                />
 
-                            <h2>Senha: </h2>
-                            <input type="password" 
-                             minlength="5"
-                             value={senha}
-                             onChange={(event) => setSenha(event.target.value)}
-                             required
-                             placeholder="Digite a senha:"
-                             name="senha"
-                             />
+                                <button type="submit">Cadastrar</button>
+                            </form>
+                            </div>
+                </section>
+                <section className="section-consultas">
+                <h1>Usuários</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de usuário</th>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          {
+                            listaUsuarios.map((usuarios) => {
+                                return(
+                                    <tr key={usuarios.idUsuario}>
 
-                             <button type="submit">Cadastrar</button>
-                        </form>
-                        </div>
-                </section>                
+                                        <td>{usuarios.idTipoUsuario}</td>
+                                        <td>{usuarios.idUsuario}</td>
+                                        <td>{usuarios.nome}</td>
+                                        <td>{usuarios.email}</td>
+                                    </tr>
+                                )}
+                            )
+                        }      
+                                     
+                    </tbody>    
+                </table>                
+                </section>            
             </div>
         )
 }

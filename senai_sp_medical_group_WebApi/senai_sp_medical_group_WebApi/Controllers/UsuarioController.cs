@@ -55,7 +55,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="novoUsuario">Obejto para instanciar um novo objeto usuário com todas as suas propriedades</param>
         /// <returns>Retorna um status code de 201 - está tudo certo</returns>
-        [Authorize(Roles = "1")]
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Usuario novoUsuario)
         {

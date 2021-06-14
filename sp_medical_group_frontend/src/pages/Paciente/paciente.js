@@ -23,7 +23,7 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        fetch('http://localhost:5000/api/consulta/minhas-consultas/' + parseJwt().role, {
+        fetch('http://localhost:5000/api/consulta/minhas-consultas', {
             headers : {
                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -36,69 +36,9 @@ class Consultas extends Component{
         .catch( (erro) => console.log(erro) )
     }
 
-    cadastrarDescricao = (event) => {
-        //Ignora o comportamento padrão do navegador - Não atualiza
-        event.preventDefault()
-        //DAQUI PARA BAIXO É ATUALIZAR
-
-        if (this.state.idDescricaoAlterado !== 0) {
-            //edita
-            fetch('http://localhost:5000/api/consulta/ ' + this.state.idDescricaoAlterado,
-            {
-                method : 'PATCH',
-
-                body : JSON.stringify( {descricaoConsulta : this.state.descricao } ),
-
-                headers : {
-                    "Content-Type" : "application/json",
-                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
-                }
-            })
-                .then(resposta => {
-                    if(resposta.status === 200){
-                        console.log(
-                            'Descrição ' + this.state.idDescricaoAlterado + ' atualizado'
-                        )
-                    }
-                })  
-                .catch(erro => console.log(erro))
-
-                .then(this.buscarConsultas)
-
-                .then(this.limparCampos)
-        }
-
-        }
     
 
     
-    limparCampos = () => {
-        this.setState({
-            descricao : '',
-            idDescricaoAlterado : 0
-        })
-    }    
-
-    buscarDescricaoPorId = async(consulta) => {
-        await this.setState({
-            idDescricaoAlterado : consulta.idConsulta,
-            descricao : consulta.descricaoConsulta
-        } , () => {
-            console.log('A consulta '+ consulta.idConsulta + ' foi selecionado')
-        })
-
-    }
-
-    atualizarEstadoDescricao = async (evento) => {
-
-        await this.setState({ descricao : evento.target.value})
-
-        console.log(this.state.descricao)
-
-        evento.preventDefault();
-    }
-  
-
     componentDidMount(){
         this.buscarConsultas();
     }
@@ -132,7 +72,7 @@ render(){
                             this.state.listaConsultas.map((consulta) => {
                                 return(
                                     <tr key={consulta.idConsulta}>
-                                        <td>{consulta.idMedicoNavigation.nomeMedico}</td>
+                                        <td>{consulta.nomeMedico}</td>
                                         <td>{consulta.idPacienteNavigation.nomePaciente}</td>
                                         <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspec}</td>
                                         <td>{consulta.dataConsulta}</td>

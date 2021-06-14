@@ -109,7 +109,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         [Authorize]
-        [HttpGet("minhas-consultas/{id}")]
+        [HttpGet("minhas-consultas")]
         public IActionResult GetMy(string id)
         {
             try
