@@ -65,17 +65,16 @@ namespace senai_sp_medical_group_WebApi.Repositories
             ctx.SaveChanges();
         }
 
-        public List<Consulta> ListarConsultas(string id)
+        public Consulta ListarConsultas(int id)
         {
-            int intId = Int32.Parse(id);
 
-            return ctx.Consultas
+            return ctx.Consultas.FirstOrDefault(e => e.IdMedico == id);
+
+           /* return ctx.Consultas
 
               .Include(c => c.IdPacienteNavigation)
 
               .Include(c => c.IdMedicoNavigation)
-
-              .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
 
               .Include(c => c.IdStatusConsultaNavigation)
 
@@ -116,6 +115,7 @@ namespace senai_sp_medical_group_WebApi.Repositories
               .Where(c => c.IdPacienteNavigation.IdUsuario == intId || c.IdMedicoNavigation.IdUsuario == intId)
 
               .ToList();
+           */
         }
 
         public void AtualizarStatus(int id, int idStatus)
@@ -130,6 +130,17 @@ namespace senai_sp_medical_group_WebApi.Repositories
             ctx.Consultas.Update(consultaBuscada);
 
             ctx.SaveChanges();
+        }
+
+        public List<Consulta> ListarConsultasMedicos(int id)
+        {
+            Medico medico = ctx.Medicos.FirstOrDefault(m => m.IdUsuario == id);
+
+            return ctx.Consultas
+                .Include(c => c.IdStatusConsultaNavigation)
+                .Include(c => c.IdMedicoNavigation)
+                .Where(c => c.IdMedico == medico.IdMedico)
+                .ToList();
         }
     }
 }

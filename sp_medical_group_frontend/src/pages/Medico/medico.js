@@ -25,11 +25,7 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        fetch('http://localhost:5000/api/consulta/minhas-consultas', {
-            headers : {
-                'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
-            }
-        })
+        fetch('http://localhost:5000/api/Consulta/minhas-consultas/' + parseJwt().Jti)
 
         .then(resposta => resposta.json())
 

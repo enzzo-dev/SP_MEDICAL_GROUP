@@ -103,11 +103,7 @@ import '../../App.css';
 
         // buscar consultas do usuário (todas consultas - administrador)
         function getConsultas(){
-            axios.get('http://localhost:5000/api/minhas-consultas', {
-            headers : {
-                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
-                }
-            })
+            axios.get('http://localhost:5000/api/consulta')
             .then(resposta => {
                 if (resposta.status === 200) {
                 setListaConsultas(resposta.data)

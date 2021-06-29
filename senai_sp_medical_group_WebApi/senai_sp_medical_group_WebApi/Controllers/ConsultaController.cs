@@ -25,7 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
-        [Authorize(Roles = "2,3")]
+        
         [HttpGet]
         public IActionResult Get()
         {
@@ -108,15 +108,14 @@ namespace senai_sp_medical_group_WebApi.Controllers
                 return BadRequest(ex);
             }
         }
-        [Authorize]
-        [HttpGet("minhas-consultas")]
-        public IActionResult GetMy(string id)
+        
+        [HttpGet("minhas-consultas/{id}")]
+        public IActionResult GetMy(int id)
         {
             try
             {
-                 id = HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
 
-                return Ok(_consultaRepository.ListarConsultas(id));
+                return Ok(_consultaRepository.ListarConsultasMedicos(id));
 
 
             }

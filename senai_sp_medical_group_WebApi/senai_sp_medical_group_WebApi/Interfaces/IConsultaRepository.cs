@@ -11,7 +11,9 @@ namespace senai_sp_medical_group_WebApi.Interfaces
     {
         List<Consulta> ListarTodos();
 
-        List<Consulta> ListarConsultas(string id);
+        List<Consulta> ListarConsultasMedicos(int id);
+
+        public Consulta ListarConsultas(int id);
 
         void Cadastrar(Consulta novaConsulta);
 
