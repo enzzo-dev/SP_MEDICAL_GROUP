@@ -109,13 +109,15 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         
-        [HttpGet("minhas-consultas/{id}")]
-        public IActionResult GetMy(int id)
+        [Authorize]
+        [HttpGet("medicos")]
+        public IActionResult GetMy()
         {
             try
             {
+                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-                return Ok(_consultaRepository.ListarConsultasMedicos(id));
+                return Ok(_consultaRepository.ListarConsultasMedicos(idUsuario));
 
 
             }
@@ -126,6 +128,22 @@ namespace senai_sp_medical_group_WebApi.Controllers
                     mensagem = "Não é possível mostrar as consultas sem logar",
                     erro
                 });
+            }
+        }
+
+        [Authorize]
+        [HttpGet("pacientes")]
+        public IActionResult GetPaciente()
+        {
+            try
+            {
+                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                return Ok(_consultaRepository.ListarConsultasPacientes(idUsuario));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
             }
         }
     }
