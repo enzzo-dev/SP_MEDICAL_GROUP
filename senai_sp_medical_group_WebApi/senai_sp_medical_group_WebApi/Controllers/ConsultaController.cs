@@ -25,7 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
-        
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
@@ -109,7 +109,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         
-        [Authorize]
+        [Authorize(Roles = "2")]
         [HttpGet("medicos")]
         public IActionResult GetMy()
         {
@@ -131,7 +131,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "3")]
         [HttpGet("pacientes")]
         public IActionResult GetPaciente()
         {

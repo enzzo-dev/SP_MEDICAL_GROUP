@@ -21,10 +21,13 @@ namespace senai_sp_medical_group_WebApi.Controllers
     public class LoginController : ControllerBase
     {
         private IUsuarioRepository _usuarioRepository { get; set; }
+        private IMedicoRepositorycs _medicoRepository { get; set; }
 
         public LoginController()
         {
             _usuarioRepository = new UsuarioRepository();
+            _medicoRepository = new MedicoRepository();
+            
         }
 
 
@@ -39,8 +42,9 @@ namespace senai_sp_medical_group_WebApi.Controllers
             try
             {
                 Usuario userLogin = _usuarioRepository.Login(login.Email, login.Senha);
+                Medico medico = new Medico();
 
-                if(userLogin == null)
+                if (userLogin == null)
                 {
                     return NotFound("Email ou senha Inválidos");
                 }

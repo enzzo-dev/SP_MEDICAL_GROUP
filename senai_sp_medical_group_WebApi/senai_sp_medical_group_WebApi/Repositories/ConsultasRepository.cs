@@ -134,29 +134,84 @@ namespace senai_sp_medical_group_WebApi.Repositories
 
         public List<Consulta> ListarConsultasMedicos(int id)
         {
-            Medico medico = ctx.Medicos.FirstOrDefault(m => m.IdUsuario == id);
-
             return ctx.Consultas
-                .Include(c => c.IdMedicoNavigation)
-                .Include(c => c.IdStatusConsultaNavigation)
-                .Where(p => p.IdMedico == medico.IdUsuario)
-                .ToList();
+                             .Include(c => c.IdPacienteNavigation)
+                             .Include(c => c.IdMedicoNavigation)
+                             .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
+
+                             .Where( c => c.IdMedicoNavigation.IdUsuario == id)
+                
+                             .ToList();
         }
 
         public List<Consulta> ListarConsultasPacientes(int id)
         {
-            Paciente paciente =
-                ctx.Pacientes.FirstOrDefault(m => m.IdUsuario == id);
 
+            // Retorna uma lista com todas as informações das presenças
             return ctx.Consultas
-                 .Include(c => c.IdMedicoNavigation.NomeMedico)
-                .Include(c => c.IdPacienteNavigation.NomePaciente)
-                .Include(c => c.HroConsulta)
-                .Include(c => c.DataConsulta)
-                .Include(c => c.IdStatusConsultaNavigation.DescricaoStatus)
-                .Where(p => p.IdPaciente == paciente.IdUsuario)
+                    .Include(c => c.IdMedicoNavigation)
+                    .Include(c => c.IdPacienteNavigation)
+                    .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
+
+                    .Where(c => c.IdMedicoNavigation.IdUsuario == id)
+
+          
+                    .ToList();
+
+            /* return ctx.Consultas
+
+                .Include(c => c.IdPacienteNavigation)
+
+                .Include(c => c.IdMedicoNavigation)
+
+                .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
+
+                .Include(c => c.IdStatusConsultaNavigation)
+
+                .Select(c => new Consulta
+                {
+                    IdConsulta = c.IdConsulta,
+                    DataConsulta = c.DataConsulta,
+                    HroConsulta = c.HroConsulta,
+                    DescricaoConsulta = c.DescricaoConsulta,
+
+                    IdPacienteNavigation = new Paciente
+                    {
+                        IdPaciente = c.IdPacienteNavigation.IdPaciente,
+                        IdUsuario = c.IdPacienteNavigation.IdUsuario,
+                        NomePaciente = c.IdPacienteNavigation.NomePaciente,
+                    },
+
+                    IdMedicoNavigation = new Medico
+                    {
+                        IdMedico = c.IdMedicoNavigation.IdMedico,
+                        IdUsuario = c.IdMedicoNavigation.IdUsuario,
+                        NomeMedico = c.IdMedicoNavigation.NomeMedico,
+                        Crm = c.IdMedicoNavigation.Crm,
+
+                        IdEspecialidadeNavigation = new Especialidade
+                        {
+                            IdEspecialidade = c.IdMedicoNavigation.IdEspecialidadeNavigation.IdEspecialidade,
+                            DescricaoEspec = c.IdMedicoNavigation.IdEspecialidadeNavigation.DescricaoEspec
+                        }
+                    },
+
+                    IdStatusConsultaNavigation = new StatusConsultum
+                    {
+                        IdStatusConsulta = c.IdStatusConsultaNavigation.IdStatusConsulta,
+                        DescricaoStatus = c.IdStatusConsultaNavigation.DescricaoStatus
+                    }
+
+                })
+
+                .Where(c => c.IdPacienteNavigation.IdUsuario == id)
+
+                .Where(c => c.IdStatusConsultaNavigation.DescricaoStatus == "Realizada" || c.IdStatusConsultaNavigation.DescricaoStatus == "Cancelada")
+
                 .ToList();
-             
+
+            */
+
         }
     }
 }
