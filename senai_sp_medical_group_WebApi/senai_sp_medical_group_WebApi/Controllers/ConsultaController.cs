@@ -109,15 +109,15 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         
-        [Authorize(Roles = "2")]
-        [HttpGet("medicos")]
+        
+        [HttpGet("minhasconsultas")]
         public IActionResult GetMy()
         {
             try
             {
                 int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-                return Ok(_consultaRepository.ListarConsultasMedicos(idUsuario));
+                return Ok(_consultaRepository.ListarConsultas(idUsuario));
 
 
             }
@@ -131,20 +131,5 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
-        [Authorize(Roles = "3")]
-        [HttpGet("pacientes")]
-        public IActionResult GetPaciente()
-        {
-            try
-            {
-                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
-
-                return Ok(_consultaRepository.ListarConsultasPacientes(idUsuario));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
     }
 }

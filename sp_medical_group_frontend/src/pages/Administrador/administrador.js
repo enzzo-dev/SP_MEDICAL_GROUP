@@ -103,7 +103,7 @@ import '../../App.css';
 
         // buscar consultas do usuário (todas consultas - administrador)
         function getConsultas(){
-            axios.get('http://localhost:5000/api/consulta')
+            axios.get('http://localhost:5000/api/consulta/minhasconsultas')
             .then(resposta => {
                 if (resposta.status === 200) {
                 setListaConsultas(resposta.data)
@@ -357,7 +357,7 @@ import '../../App.css';
                             listaConsultas.map((consultas) => {
                                 return(
                                     <tr key={consultas.idConsulta}>
-                                        <td>{consultas.idMedicoNavigation.nomeMedico}</td>
+                                        <td>{consultas.idMedico.nomeMedico}</td>
                                         <td>{consultas.idPacienteNavigation.nomePaciente}</td>
                                         <td>{consultas.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspec}</td>
                                         <td>{consultas.dataConsulta}</td>
