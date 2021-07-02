@@ -1,5 +1,5 @@
 
-
+USE SPMG;
 INSERT INTO TiposUsuarios(Nome)
 VALUES ('Administrador'),('Médico'),('Paciente');
 

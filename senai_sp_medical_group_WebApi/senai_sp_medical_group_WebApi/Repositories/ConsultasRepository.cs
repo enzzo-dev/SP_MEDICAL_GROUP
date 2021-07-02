@@ -47,8 +47,12 @@ namespace senai_sp_medical_group_WebApi.Repositories
         }
 
         public List<Consulta> ListarTodos()
-        { 
-            return ctx.Consultas.ToList();
+        {
+            return ctx.Consultas
+                .Include(c => c.IdMedicoNavigation)
+                .Include(c => c.IdPacienteNavigation)
+                .Include(c => c.IdStatusConsultaNavigation)
+                .ToList();
         }
 
         public void AtualizarDescricao(int id, ConsultaViewModel atualizarDescricao)
@@ -86,9 +90,9 @@ namespace senai_sp_medical_group_WebApi.Repositories
              .FirstOrDefault(m => m.IdUsuario == id);
 
             return ctx.Consultas
-                .Include(c => c.IdPacienteNavigation)
-                .Include(c => c.IdStatusConsultaNavigation)
                 .Include(c => c.IdMedicoNavigation)
+                .Include(c => c.IdStatusConsultaNavigation)
+                .Include(c => c.IdPacienteNavigation)
                 .Where(c => c.IdMedico == medico.IdMedico)
                 .ToList();
         }

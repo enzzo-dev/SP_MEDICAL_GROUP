@@ -6,6 +6,7 @@ import { parseJwt } from '../../services/auth';
 import Header from '../../Components/header/header'
 
 import '../../App.css';
+import axios from 'axios';
 
 
 
@@ -25,13 +26,21 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        fetch('http://localhost:5000/api/Consulta/minhas-consultas/' + parseJwt().Jti)
+        axios.get('http://localhost:5000/api/Consulta/consultasMedicos',{
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+            }
+        })
 
-        .then(resposta => resposta.json())
+        .then(resposta => {
+            if(resposta.status === 201){
+                this.setState({listaConsultas : resposta.data})
+                console.log('lista puxada com sucesso!')
+            }
+        })
 
-        .then(data => this.setState({listaConsultas : data}))
-
-        .catch( (erro) => console.log(erro) )
+        
+        .catch( erro => console.log(erro) )
     }
 
     cadastrarDescricao = (event) => {
@@ -114,7 +123,6 @@ render(){
                         <tr>
                             <th>Médico</th>
                             <th>Pacientes</th>
-                            <th>Especialidade</th>
                             <th>Data</th>
                             <th>Horário</th>
                             <th>Status</th>
@@ -124,15 +132,14 @@ render(){
                     </thead>
                     <tbody>
                          {
-                            this.state.listaConsultas.map((consulta) => {
+                            this.state.listaConsultas.map( consulta => {
                                 return(
                                     <tr key={consulta.idConsulta}>
                                         <td>{consulta.idMedicoNavigation.nomeMedico}</td>
                                         <td>{consulta.idPacienteNavigation.nomePaciente}</td>
-                                        <td>{consulta.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspec}</td>
                                         <td>{consulta.dataConsulta}</td>
                                         <td>{consulta.hroConsulta}</td>
-                                        <td>{consulta.statusConsulta}</td>
+                                        <td>{consulta.idStatusConsultaNavigation.descricaoStatus}</td>
                                         <td>{consulta.descricaoConsulta}</td>
                                         <td>
                                                 <button  onClick={() => this.buscarDescricaoPorId(consulta)}className="Editar"type="submit">Editar</button>

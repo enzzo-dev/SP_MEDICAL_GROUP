@@ -29,12 +29,15 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// <returns>Caso dê tudo certo irá retornar o StatusCode - OK - 201</returns>
         
  
+        [Authorize(Roles ="1,2")]
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                return Ok(_medicoRepository.ListarTodos());
+                _medicoRepository.ListarTodos();
+
+                return StatusCode(202);
             }
             catch (Exception ex)
             {
@@ -98,7 +101,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             {
                 _medicoRepository.Cadastrar(novoMedico);
 
-                return StatusCode(201);
+                return StatusCode(202);
 
             }catch(Exception ex)
             {

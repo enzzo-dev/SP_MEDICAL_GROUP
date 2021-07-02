@@ -46,8 +46,9 @@ namespace senai_sp_medical_group_WebApi.Repositories
         public List<Medico> ListarTodos()
         {
             return ctx.Medicos
-             
 
+
+                .Include(c => c.IdMedico)
                 .ToList();
         }
     }

@@ -117,7 +117,9 @@ namespace senai_sp_medical_group_WebApi.Controllers
             {
                 int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-                return Ok(_consultaRepository.ListarConsultasM(idUsuario));
+               _consultaRepository.ListarConsultasM(idUsuario);
+
+                return StatusCode(201);
 
 
             }
