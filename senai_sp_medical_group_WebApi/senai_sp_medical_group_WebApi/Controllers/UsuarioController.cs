@@ -100,7 +100,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <param name="id">parâmetro usado para encontrar o usuário desejado</param>
         /// <returns>Deleta o usuário desejado caso você tenha permissão e um StatusCode caso dê certo, caso contrário gera um BadRequest</returns>
-        [Authorize(Roles = "1")]
+      
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

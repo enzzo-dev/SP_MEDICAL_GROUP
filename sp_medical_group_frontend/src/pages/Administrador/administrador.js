@@ -86,6 +86,7 @@ import '../../App.css';
         // setStates para a listagem das consultas
         const [ listaConsultas, setListaConsultas ] = useState( [] ) 
         const [ listaMedicos, setListaMedicos ] = useState( [] )
+        const[nomeMedico, setNomeMedico] = useState('')
         const [ listaPacientes, setListaPacientes ] = useState( [] )   
         
     
@@ -96,17 +97,22 @@ import '../../App.css';
         const[senha, setSenha] = useState('')
 
         const[listaUsuarios, setListaUsuarios] = useState([])
+        const[idUsuario, setIdUsuario] = useState(0) 
         const[listaTiposUsuarios, setTiposUsuarios] = useState([])
+
+        const[idEspecialidade, setEspecialidade] = useState(0)
+        const[listaEspecialidades, setListaEspecialidade] = useState([])
     
         //funções
 
 
         // buscar consultas do usuário (todas consultas - administrador)
         function getConsultas(){
-            axios.get('http://localhost:5000/api/consulta/minhasconsultas')
+            axios.get('http://localhost:5000/api/consulta')
             .then(resposta => {
                 if (resposta.status === 200) {
-                setListaConsultas(resposta.data)
+
+                    setListaConsultas(resposta.data)
                 }
             })   
             .catch(erro => console.log(erro))
@@ -142,6 +148,8 @@ import '../../App.css';
                 }
             })   
             .catch(erro => console.log(erro))
+
+            
         }
     
         // buscar paciente
@@ -177,6 +185,22 @@ import '../../App.css';
             .catch(erro => console.log(erro))
         }
 
+        function getEspecialidade(){
+            axios.get('http://localhost:5000/api/especialidade', {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                }
+            })
+
+            .then(resposta => {
+                if(resposta.status === 200){
+                    setListaEspecialidade(resposta.data)
+                }
+            })
+
+            .catch(erro => console.log(erro))
+        }
+
         // Funcionando
         function postConsultas(event){
     
@@ -187,10 +211,10 @@ import '../../App.css';
             axios.post('http://localhost:5000/api/consulta', {
                 
                 idPaciente : idPaciente,
-                idMedico : idMedico,            
+                idMedico : idMedico,   
+                idStatusConsulta : idStatusConsulta,         
                 dataConsulta : dataConsulta,
                 hroConsulta : hroConsulta,
-                idStatusConsulta : idStatusConsulta,
                 descricaoConsulta : descricaoConsulta
     
             }, {
@@ -206,6 +230,8 @@ import '../../App.css';
                     console.log('Consulta cadastrada!')
     
                     setIsLoading(false)
+
+                    limparCampos()
     
                 }
             })
@@ -215,27 +241,49 @@ import '../../App.css';
                 setIsLoading(false)
             })
     
+
         
     
         };    
-    
-        // funções para ciclos de vida 
-        useEffect( getConsultas, [] )  
-        useEffect(getUsers, []) 
-        useEffect(getMedicos, [])
-        useEffect(getPacientes, [])
-        useEffect(getTypeUser, [])
 
         function createUsers(event){
+
             event.preventDefault()
 
-            axios.post('http://localhost:5000/api/usuario', {
+                axios.post('http://localhost:5000/api/usuario', {
 
-                idTipoUsuario : idTipoUsuario,
-                nome : nome,
-                email : email,
-                senha : senha
+                    idTipoUsuario : idTipoUsuario,
+                    idEspecialidade : idEspecialidade,
+                    nome : nome,
+                    email : email,
+                    senha : senha
+    
+                }, {
+                    headers : {
+                        'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                    }
+                })
+    
+                .then(resposta => {
+                    if(resposta.status === 201){
+                        console.log('Usuário cadastrado com sucesso')
+                        setListaUsuarios(resposta.data)
+                        console.log('Usuário criado com sucesso!')
+                        limparCampos()
+                    }
+                })
+    
+                .catch((erro) => console.log(erro))
+    
 
+            }
+    
+        function createMedicos(event){
+            event.preventDefault();
+
+            axios.post('http://localhost:5000/api/medico', {
+                idUsuario : idUsuario,
+                nomeMedico: nomeMedico
             }, {
                 headers : {
                     'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
@@ -244,12 +292,35 @@ import '../../App.css';
 
             .then(resposta => {
                 if(resposta.status === 201){
-                    console.log('Usuário cadastrado com sucesso')
+                    listaMedicos(resposta.data);
+                    limparCampos()
+                    console.log('Médico cadastrado com sucesso!')
                 }
             })
 
-            .catch((erro) => console.log(erro))
+            .catch(erro => console.log(erro))
+
+        }    
+
+        function limparCampos(){
+            
+     
+
+            setNomeMedico('')
+            setSenha('')
+            setNome('')
+            setEmail('')
+
         }
+        // funções para ciclos de vida 
+        useEffect( getConsultas, [] )  
+        useEffect(getUsers, []) 
+        useEffect(getMedicos, [])
+        useEffect(getPacientes, [])
+        useEffect(getTypeUser, [])
+        useEffect(getEspecialidade, [])
+
+      
         
         return(
             <div>
@@ -285,15 +356,25 @@ import '../../App.css';
                            >
                                 <option value="0">Médico</option>
                                 {
-                                    listaMedicos.map( medico => {
-                                        return(
-                                            <option key={medico.idMedico} value={medico.idMedico}>
-                                                {medico.nomeMedico}
-                                            </option>
-                                        )
-                                    })
+                                     listaMedicos.map(usuarios => {
+                                     
+                                            return(
+                                                <option key={usuarios.idUsuario} value={usuarios.idUsuario}>
+                                                    {usuarios.nome}
+                                                </option>    
+                                        
+                                        )  
+                                     })
                                 }
                            </select>
+
+                           <h2>Status da Consulta:</h2>
+                            <select  name="idStatusConsulta" value={idStatusConsulta} onChange={(event) => setIdStatusConsulta(event.target.value)}>
+                                <option disabled value="0">X----Selecione um Status----X</option>
+                                <option value="1">Agendada</option>
+                                <option value="2">Realizada</option>
+                                <option value="3">Cancelada</option>
+                            </select>
 
                            <h2>Data da consulta:</h2>
                             <input 
@@ -315,14 +396,6 @@ import '../../App.css';
                                 onChange={(event) => setHroConsulta(event.target.value)}
                             />
 
-
-                            <h2>Status da Consulta:</h2>
-                            <select  name="idStatusConsulta" value={idStatusConsulta} onChange={(event) => setIdStatusConsulta(event.target.value)}>
-                                <option disabled value="0">X----Selecione um Status----X</option>
-                                <option value="1">Agendada</option>
-                                <option value="2">Realizada</option>
-                                <option value="3">Cancelada</option>
-                            </select>
 
                             <h2>Descrição da consulta:</h2>
                             <input 
@@ -354,15 +427,13 @@ import '../../App.css';
                     </thead>
                     <tbody>
                           {
-                            listaConsultas.map((consultas) => {
+                            listaConsultas.map( consultas => {
                                 return(
                                     <tr key={consultas.idConsulta}>
                                         <td>{consultas.idMedico.nomeMedico}</td>
-                                        <td>{consultas.idPacienteNavigation.nomePaciente}</td>
-                                        <td>{consultas.idMedicoNavigation.idEspecialidadeNavigation.descricaoEspec}</td>
+                                        <td>{consultas.idPaciente.nomePaciente}</td>
                                         <td>{consultas.dataConsulta}</td>
                                         <td>{consultas.idConsulta.hroConsulta}</td>
-                                        <td>{consultas.idStatusConsultaNavigation.statusConsulta}</td>
                                         <td>{consultas.descricaoConsulta}</td>
                                     </tr>
                                 )}
@@ -389,12 +460,33 @@ import '../../App.css';
                                                 <option key={usuarios.idTipoUsuario} value={usuarios.idTipoUsuario}>
                                                     {usuarios.nome}
                                                 </option>
+                                                
                                             )
                                         })
+                                        
                                     }
 
                                 </select>
-
+                                   
+                                                  
+                                <h2>Especialidade:</h2>
+                                <select name="idEspecialidade"
+                                    value={idEspecialidade}
+                                    onChange={(event) => setEspecialidade(event.target.value)}
+                                    >
+                                        <option Disabled>----Selecione a especialidade do médico-----</option>
+                                        {
+                                            listaEspecialidades.map(medicos => {
+                                                return(
+                                                    <option key={medicos.idEspecialidade} value={medicos.idEspecialidade}>
+                                                        {medicos.descricaoEspec}
+                                                    </option>
+                                                )
+                                            })
+                                        }    
+                                        
+                                </select>
+                                             
                                 <h2>Nome:</h2>
                                 <input type="text"
                                     value={nome}
@@ -455,6 +547,43 @@ import '../../App.css';
                                      
                     </tbody>    
                 </table>                
+                </section>
+                <section className="section-cadastrar-consulta">
+                        <h1>Cadastrar médicos: </h1>
+                        <div className="cadastrar-consulta">
+                            <form className="cadastrarConsulta" onSubmit={createMedicos}>
+                                <h2>Usuário Cadastrado: </h2>
+                                <select name="idUsuario" 
+                                value={idUsuario} 
+                                onChange={(event) => setIdUsuario(event.target.value)}>
+
+                                    <option Disabled >----Selecione o usuário----</option>
+                                    {
+                                        listaUsuarios.map((usuarios) => {
+                                            if(usuarios.idTipoUsuario === 2){
+                                                return(
+                                                    <option key={usuarios.idUsuario} value={usuarios.idUsuario}>
+                                                        {usuarios.nome}
+                                                    </option>    
+                                                )
+                                            } 
+                                        })  
+                                    }
+                                </select>
+                                   
+                                                  
+                                <h2>Nome do médico:</h2>
+                                <input type="text"
+                                    value={nomeMedico}
+                                    onChange={(event) => setNomeMedico(event.target.value)}
+                                    required
+                                    placeholder="Digite o nome do médico:"
+                                    name="nomeMedico"
+                                />
+
+                                <button type="submit">Cadastrar</button>
+                            </form>
+                            </div>
                 </section>            
             </div>
         )

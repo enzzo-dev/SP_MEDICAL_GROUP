@@ -28,7 +28,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// </summary>
         /// <returns>Caso dê tudo certo irá retornar o StatusCode - OK - 201</returns>
         
-        [Authorize(Roles = "1")]
+ 
         [HttpGet]
         public IActionResult Get()
         {
@@ -90,13 +90,29 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
+        [HttpGet]
+        public IActionResult Get(Medico novoMedico)
+        {
+            try
+            {
+                _medicoRepository.Cadastrar(novoMedico);
+
+                return StatusCode(201);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         /// <summary>
         /// Método DELETE permite deletar um médico cadastrado no banco de dados
         /// </summary>
         /// <param name="id">Parâmetro utilizado para encontrar o médico desejado</param>
         /// <returns>Retorna um StatusCode 204 caso dê tudo certo</returns>
         
-        [Authorize(Roles = "1")]
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

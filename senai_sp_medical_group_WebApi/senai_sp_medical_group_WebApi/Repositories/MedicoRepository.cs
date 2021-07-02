@@ -16,12 +16,10 @@ namespace senai_sp_medical_group_WebApi.Repositories
         {
             Medico medicoBuscado = ctx.Medicos.Find(id);
 
-            if(medicoBuscado.NomeMedico != null || medicoBuscado.Crm != null || medicoBuscado.IdClinica != null || medicoBuscado.IdEspecialidade != null)
+            if(medicoBuscado.NomeMedico != null)
             {
                 medicoBuscado.NomeMedico = medicoAtualizado.NomeMedico;
-                medicoBuscado.Crm = medicoAtualizado.Crm;
-                medicoBuscado.IdClinica = medicoAtualizado.IdClinica;
-                medicoBuscado.IdEspecialidade = medicoAtualizado.IdEspecialidade;
+              
             }
 
             ctx.Medicos.Update(medicoBuscado);
@@ -48,29 +46,7 @@ namespace senai_sp_medical_group_WebApi.Repositories
         public List<Medico> ListarTodos()
         {
             return ctx.Medicos
-                .Include(m => m.IdEspecialidadeNavigation)
-
-                .Include(m => m.IdClinicaNavigation)
-
-                .Select(m => new Medico
-                {
-                    IdMedico = m.IdMedico,
-                    NomeMedico = m.NomeMedico,
-                    Crm = m.Crm,
-
-                    IdEspecialidadeNavigation = new Especialidade
-                    {
-                        IdEspecialidade = m.IdEspecialidadeNavigation.IdEspecialidade,
-                        DescricaoEspec = m.IdEspecialidadeNavigation.DescricaoEspec
-                    },
-
-                    IdClinicaNavigation = new Clinica
-                    {
-                        IdClinica = m.IdClinicaNavigation.IdClinica,
-                        NomeFantasia = m.IdClinicaNavigation.NomeFantasia
-                    }
-
-                })
+             
 
                 .ToList();
         }

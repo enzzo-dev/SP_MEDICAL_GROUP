@@ -160,46 +160,6 @@
             <param name="id">parâmetro usado para encontrar o usuário desejado</param>
             <returns>Deleta o usuário desejado caso você tenha permissão e um StatusCode caso dê certo, caso contrário gera um BadRequest</returns>
         </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Clinica">
-            <summary>
-            Classe que representa uma rede de clínicas disponiveis para exames, cada uma com seu médico
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Consulta">
-            <summary>
-            Classe que representa as consultas marcadas peos pacientews onde tem o médico desejado, horários, descrição da consulta
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Especialidade">
-            <summary>
-            Classe que representa a especialidade de cada médico
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Medico">
-            <summary>
-            Classe que represente os usuários que se cadastraram como médicos e suas consultas disponiveis.
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Paciente">
-            <summary>
-            Classe que representa o usuário que se cadastrou e é um paciente
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.StatusConsultum">
-            <summary>
-            Classe que representa o estado em que a consulta marcada está como: Marcada, Cancelada, Efetuada
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.TiposUsuario">
-            <summary>
-            Classe que representa tipos de usuários existentes para cadastro como: Médico, Administrador, Paciente
-            </summary>
-        </member>
-        <member name="T:senai_sp_medical_group_WebApi.Domains.Usuario">
-            <summary>
-            Classe que representa o login/cadastro de usuáiso no sistema
-            </summary>
-        </member>
         <member name="M:senai_sp_medical_group_WebApi.Interfaces.IUsuarioRepository.ListarTodos">
             <summary>
             Lista de usuáriso cadastrados no banco de dados

@@ -50,10 +50,8 @@ namespace senai_sp_medical_group_WebApi.Repositories
                  {
                      IdUsuario = p.IdUsuario,
                      IdPaciente = p.IdPaciente,
-                     NomePaciente = p.NomePaciente,
-                     DataNascimento = p.DataNascimento,
-                     Rg = p.Rg,
-                     Cpf = p.Cpf
+                     NomePaciente = p.NomePaciente
+                  
                  })
 
                  .ToList();

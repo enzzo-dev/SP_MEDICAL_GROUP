@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 namespace senai_sp_medical_group_WebApi.Domains
 {
-    /// <summary>
-    /// Classe que representa tipos de usuários existentes para cadastro como: Médico, Administrador, Paciente
-    /// </summary>
     public partial class TiposUsuario
     {
         public TiposUsuario()

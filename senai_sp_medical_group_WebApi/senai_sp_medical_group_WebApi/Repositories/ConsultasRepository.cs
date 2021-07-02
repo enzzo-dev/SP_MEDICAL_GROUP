@@ -80,18 +80,30 @@ namespace senai_sp_medical_group_WebApi.Repositories
             ctx.SaveChanges();
         }
 
-        public List<Consulta> ListarConsultas(int id)
+        public List<Consulta> ListarConsultasM(int id)
         {
+            Medico medico = ctx.Medicos
+             .FirstOrDefault(m => m.IdUsuario == id);
+
             return ctx.Consultas
-                             .Include(c => c.IdPacienteNavigation)
+                .Include(c => c.IdPacienteNavigation)
+                .Include(c => c.IdStatusConsultaNavigation)
+                .Include(c => c.IdMedicoNavigation)
+                .Where(c => c.IdMedico == medico.IdMedico)
+                .ToList();
+        }
 
-                             .Include(c => c.IdMedicoNavigation)
+        public List<Consulta> ListarConsultasP(int id)
+        {
+            Paciente paciente = ctx.Pacientes.FirstOrDefault(m => m.IdUsuario == id);
 
-                             .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
 
-                             .Where( c => c.IdMedicoNavigation.IdUsuario == id || c.IdPacienteNavigation.IdUsuario == id)
-                
-                             .ToList();
+            return ctx.Consultas
+                 .Include(c => c.IdPacienteNavigation)
+                 .Include(c => c.IdStatusConsultaNavigation)
+                 .Include(c => c.IdMedicoNavigation)
+                 .Where(c => c.IdPaciente == paciente.IdPaciente)
+                 .ToList();
         }
 
     }

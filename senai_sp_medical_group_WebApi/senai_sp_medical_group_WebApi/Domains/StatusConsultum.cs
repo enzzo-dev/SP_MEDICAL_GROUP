@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 namespace senai_sp_medical_group_WebApi.Domains
 {
-    /// <summary>
-    /// Classe que representa o estado em que a consulta marcada está como: Marcada, Cancelada, Efetuada
-    /// </summary>
     public partial class StatusConsultum
     {
         public StatusConsultum()

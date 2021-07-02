@@ -25,7 +25,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             _consultaRepository = new ConsultasRepository();
         }
 
-        [Authorize]
+      
         [HttpGet]
         public IActionResult Get()
         {
@@ -109,15 +109,37 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         
-        
-        [HttpGet("minhasconsultas")]
+        [Authorize(Roles = "2")]
+        [HttpGet("consultasMedicos")]
         public IActionResult GetMy()
         {
             try
             {
                 int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
 
-                return Ok(_consultaRepository.ListarConsultas(idUsuario));
+                return Ok(_consultaRepository.ListarConsultasM(idUsuario));
+
+
+            }
+            catch (Exception erro)
+            {
+                return BadRequest(new
+                {
+                    mensagem = "Não é possível mostrar as consultas sem logar",
+                    erro
+                });
+            }
+        }
+
+        [Authorize(Roles = "3")]
+        [HttpGet("consultasPacientes")]
+        public IActionResult GetP()
+        {
+            try
+            {
+                int idUsuario = Convert.ToInt32(HttpContext.User.Claims.First(c => c.Type == JwtRegisteredClaimNames.Jti).Value);
+
+                return Ok(_consultaRepository.ListarConsultasP(idUsuario));
 
 
             }

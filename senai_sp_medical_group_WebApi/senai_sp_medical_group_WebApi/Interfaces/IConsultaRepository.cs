@@ -10,7 +10,9 @@ namespace senai_sp_medical_group_WebApi.Interfaces
     interface IConsultaRepository
     {
         List<Consulta> ListarTodos();
-        public List<Consulta> ListarConsultas(int id);
+        public List<Consulta> ListarConsultasM(int id);
+
+        public List<Consulta> ListarConsultasP(int id);
 
         void Cadastrar(Consulta novaConsulta);
 
