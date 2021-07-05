@@ -433,7 +433,7 @@ import '../../App.css';
                     </thead>
                     <tbody>
                           {
-                            listaConsultas.map( (consultas) => {
+                            listaConsultas.map( consultas => {
                                 return(
                                     <tr key={consultas.idConsulta}>
                                         <td>{consultas.idMedicoNavigation.nomeMedico}</td>

@@ -29,7 +29,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
         /// <returns>Caso dê tudo certo irá retornar o StatusCode - OK - 201</returns>
         
  
-        [Authorize(Roles ="1,2")]
+        [Authorize(Roles ="1")]
         [HttpGet]
         public IActionResult Get()
         {

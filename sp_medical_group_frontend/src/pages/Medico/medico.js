@@ -26,7 +26,7 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        axios.get('http://localhost:5000/api/Consulta/consultasMedicos',{
+        axios.get('http://localhost:5000/api/Consulta',{
             headers : {
                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
             }

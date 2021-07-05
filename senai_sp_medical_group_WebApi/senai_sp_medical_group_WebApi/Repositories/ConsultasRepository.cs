@@ -49,6 +49,7 @@ namespace senai_sp_medical_group_WebApi.Repositories
         public List<Consulta> ListarTodos()
         {
             return ctx.Consultas
+                .Include(c => c.HroConsulta)
                 .Include(c => c.IdMedicoNavigation)
                 .Include(c => c.IdPacienteNavigation)
                 .Include(c => c.IdStatusConsultaNavigation)
@@ -93,7 +94,7 @@ namespace senai_sp_medical_group_WebApi.Repositories
                 .Include(c => c.IdMedicoNavigation)
                 .Include(c => c.IdStatusConsultaNavigation)
                 .Include(c => c.IdPacienteNavigation)
-                .Where(c => c.IdMedico == medico.IdMedico)
+                .Where(c => c.IdMedico == medico.IdUsuario)
                 .ToList();
         }
 
