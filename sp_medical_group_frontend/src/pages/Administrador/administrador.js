@@ -145,7 +145,7 @@ import '../../App.css';
                     'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
                 }
             })
-            
+    
             .then(resposta => {
                 if (resposta.status === 202) {
                     
