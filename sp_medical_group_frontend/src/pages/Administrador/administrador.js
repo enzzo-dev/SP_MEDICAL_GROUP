@@ -1,55 +1,9 @@
 
 import{Link} from 'react-router-dom';
-import {parseJwt} from '../../services/auth'
 
 import Header from '../../Components/header/header'
 import '../../App.css';
 
-// class Admin extends Component{
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             listaConsultas : [],
-//             medicoNome : '',
-//             pacienteNome : '',
-//             horarioConsulta : '',
-//             statusConsulta : [],
-//             descricaoConsulta : '',
-
-
-//         }
-//     }
-
-//     limparCampos = () => {
-//         this.setState({
-//             descricaoConsulta : '',
-//             statusConsulta : [],
-//             horarioConsulta : '',
-//             pacienteNome : '',
-//             medicoNome : '',
-//             dataConsulta : ''
-//         })
-//     }
-
-//     /* BUSCAR CONSULTAS  */
-//     buscarConsultas = () => {
-
-//         console.log("Vamos realizar a chamada para a API")
-
-//         fetch('http://localhost:5000/api/consulta/minhas-consultas/' + parseJwt().jti, {
-//             headers : {
-//                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
-//             }
-//         })
-
-//         .then(resposta => resposta.json())
-
-//         .then(data => this.setState({listaConsultas : data}))
-
-//         .catch( (erro) => console.log(erro) )
-//     }
-//}
-// export default Admin
 
     import React, {useState,useEffect} from 'react';
     import axios from 'axios';
@@ -58,14 +12,10 @@ import '../../App.css';
         
         
 
-        // IdPaciente,IdMedico,IdStatusConsulta,DataConsulta,HorarioConsulta,DescricaoAtendimento    
-    
-        // VARIÁVEIS PARA CADASTRO DE CONSULTAS
         const [ idPaciente, setIdPaciente ] = useState( 0 )
         console.log(idPaciente)
     
-        const [ idMedico, setIdMedico ] = useState( 0 )   
-        console.log(idMedico)
+    
     
         const [ idStatusConsulta, setIdStatusConsulta ] = useState( 0 )
         console.log(idStatusConsulta)
@@ -83,31 +33,40 @@ import '../../App.css';
         const [ isLoading, setIsLoading ] = useState (false)
         console.log(isLoading)
     
-        // setStates para a listagem das consultas
+ 
         const [ listaConsultas, setListaConsultas ] = useState( [] ) 
+
         const [ listaMedicos, setListaMedicos ] = useState( [] )
+        const [ idMedico, setIdMedico ] = useState( 0 )   
         const[nomeMedico, setNomeMedico] = useState('')
+        const[crm, setCrm] = useState('')
+
         const [ listaPacientes, setListaPacientes ] = useState( [] )   
         const[nomePaciente, setNomePaciente] = useState('')
+        const[rg, setRg] = useState(0)
+        const[cpf, setCpf] = useState(0)
+        const[dataNascimento, setDataNascimento] = useState(new Date('').toLocaleDateString())
         
     
-        //VARIÁVEIS PARA CADASTRAR NOVOS USUÁRIOS - ADMNINSTRADOR
-        const[ idTipoUsuario, setIdTipoUsuario] = useState(0)
+  
+      
         const[nome, setNome] = useState('')
         const[email, setEmail] = useState('')
         const[senha, setSenha] = useState('')
 
         const[listaUsuarios, setListaUsuarios] = useState([])
         const[idUsuario, setIdUsuario] = useState(0) 
+
+        const[ idTipoUsuario, setIdTipoUsuario] = useState(0)
         const[listaTiposUsuarios, setTiposUsuarios] = useState([])
+
+        const[idClinica, setIdClinica] = useState(0)
+        const[listaClinicas, setListaClinicas] = useState([])
 
         const[idEspecialidade, setEspecialidade] = useState(0)
         const[listaEspecialidades, setListaEspecialidade] = useState([])
     
-        //funções
-
-
-        // buscar consultas do usuário (todas consultas - administrador)
+     
         function getConsultas(){
             axios.get('http://localhost:5000/api/consulta', {
                 headers:{
@@ -147,13 +106,14 @@ import '../../App.css';
             })
     
             .then(resposta => {
-                if (resposta.status === 202) {
-                    
+                if (resposta.status === 200) {
                     setListaMedicos(resposta.data)
+                    console.log('puxando médicos')
                 }
             })   
 
             .catch(erro => console.log(erro))
+            .catch(console.log('Está dando algum erro!'))
 
             
         }
@@ -205,6 +165,23 @@ import '../../App.css';
             })
 
             .catch(erro => console.log(erro))
+        }
+
+        function getClinicas(){
+            axios.get('http://localhost:5000/api/clinica', {
+                headers : {
+                    'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
+                }
+            })
+
+            .then(resposta => {
+                if(resposta.status === 200){
+                    setListaClinicas(resposta.data)
+                    console.log('clinicas adicionadas')
+                }
+            })
+
+            .catch( (erro) => console.log(erro))
         }
 
         // Funcionando
@@ -259,7 +236,6 @@ import '../../App.css';
                 axios.post('http://localhost:5000/api/usuario', {
 
                     idTipoUsuario : idTipoUsuario,
-                    idEspecialidade : idEspecialidade,
                     nome : nome,
                     email : email,
                     senha : senha
@@ -274,21 +250,23 @@ import '../../App.css';
                     if(resposta.status === 201){
                         console.log('Usuário cadastrado com sucesso')
                         setListaUsuarios(resposta.data)
-                        console.log('Usuário criado com sucesso!')
                     }
                 })
     
                 .catch((erro) => console.log(erro))
     
 
-            }
+        }
     
         function createMedicos(event){
             event.preventDefault();
 
             axios.post('http://localhost:5000/api/medico', {
                 idUsuario : idUsuario,
-                nomeMedico: nomeMedico
+                idClinica : idClinica,
+                idEspecialidade : idEspecialidade,
+                nomeMedico: nomeMedico,
+                crm : crm
             }, {
                 headers : {
                     'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
@@ -299,6 +277,7 @@ import '../../App.css';
                 if(resposta.status === 201){
                     listaMedicos(resposta.data);
                     console.log('Médico cadastrado com sucesso!')
+                    window.alert('Médico cadastradom sucesso!')
                 }
             })
 
@@ -311,19 +290,25 @@ import '../../App.css';
 
             axios.post('http://localhost:5000/api/paciente', {
                 idUsuario : idUsuario,
-                nomePaciente : nomePaciente
+                nomePaciente : nomePaciente,
+                rg : rg,
+                cpf : cpf,
+                dataNascimento : dataNascimento
             }, {
                 headers : {
                     'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
                 }
             })
+
+            
         }
 
         // funções para ciclos de vida 
-        useEffect( getConsultas, [] )  
-        useEffect(getUsers, []) 
         useEffect(getMedicos, [])
         useEffect(getPacientes, [])
+        useEffect( getConsultas, [] )  
+        useEffect(getClinicas, [])
+        useEffect(getUsers, []) 
         useEffect(getTypeUser, [])
         useEffect(getEspecialidade, [])
 
@@ -333,11 +318,12 @@ import '../../App.css';
             <div>
                 <Header />
                 <Link to="/"><h3 className="logout">Sair</h3></Link>
+
+                {/*CADASTRA CONSULTAS */}
                 <section className="section-cadastrar-consulta cadastrar">
                     <h1>Cadastrar consultas</h1>
                     <div className="cadastrar-consulta">
                         <form className="cadastrarConsulta" onSubmit={postConsultas}>
-
                         <h2>Nome do paciente:</h2>
                             <select name="idPaciente"
                                 value={idPaciente}
@@ -356,7 +342,6 @@ import '../../App.css';
                             </select>
 
                             <h2>Nome do médico:</h2>
-
                            <select name="idMedico" 
                                 value={idMedico} 
                                 onChange={(event) => setIdMedico(event.target.value)}
@@ -390,7 +375,7 @@ import '../../App.css';
                                 required
                                 name="dataConsulta"
                                 value={dataConsulta}
-                                onChange={(event => setDataConsulta(event.target.value))}
+                                onChange={(event) => setDataConsulta(event.target.value)}
                              />
 
                             <h2>Horário da consulta:</h2>
@@ -418,6 +403,8 @@ import '../../App.css';
                         </form>
                     </div>
                 </section>
+
+                {/*LISTA TODAS AS CONSULTAS */}
                 <section className="section-consultas">
                 <h1>Consultas</h1>
                 <table>
@@ -451,6 +438,7 @@ import '../../App.css';
                 </table>
                 </section>
 
+                {/*CADASTRA USUÁRIOS*/}
                 <section className="section-cadastrar-consulta">
                         <h1>Cadastrar usuários</h1>
                         <div className="cadastrar-consulta">
@@ -475,24 +463,7 @@ import '../../App.css';
 
                                 </select>
                                    
-                                                  
-                                <h2>Especialidade:</h2>
-                                <select name="idEspecialidade"
-                                    value={idEspecialidade}
-                                    onChange={(event) => setEspecialidade(event.target.value)}
-                                    >
-                                        <option Disabled>----Selecione a especialidade do médico-----</option>
-                                        {
-                                            listaEspecialidades.map(medicos => {
-                                                return(
-                                                    <option key={medicos.idEspecialidade} value={medicos.idEspecialidade}>
-                                                        {medicos.descricaoEspec}
-                                                    </option>
-                                                )
-                                            })
-                                        }    
-                                        
-                                </select>
+                                                
                                              
                                 <h2>Nome:</h2>
                                 <input type="text"
@@ -526,6 +497,8 @@ import '../../App.css';
                             </form>
                             </div>
                 </section>
+
+                {/*LISTA OS USUÁRIOS */}
                 <section className="section-consultas">
                 <h1>Usuários</h1>
                 <table>
@@ -555,6 +528,8 @@ import '../../App.css';
                     </tbody>    
                 </table>                
                 </section>
+
+                {/*CADASTRA MÉDICOS */}
                 <section className="section-cadastrar-consulta">
                         <h1>Cadastrar médicos: </h1>
                         <div className="cadastrar-consulta">
@@ -567,17 +542,52 @@ import '../../App.css';
                                     <option Disabled >----Selecione o usuário----</option>
                                     {
                                         listaUsuarios.map((usuarios) => {
-                                            if(usuarios.idTipoUsuario === 2){
-                                                return(
-                                                    <option key={usuarios.idUsuario} value={usuarios.idUsuario}>
-                                                        {usuarios.nome}
-                                                    </option>    
+                                        if(usuarios.idTipoUsuario === 2){
+                                            return(
+                                            <option key={usuarios.idUsuario} value={usuarios.idUsuario}>
+                                                {usuarios.nome}
+                                            </option>    
                                                 )
                                             } 
                                         })  
                                     }
                                 </select>
-                                   
+
+                                <h2>Clínica: </h2>
+                                <select name="idClinica"
+                                    value={idClinica}
+                                    onChange={(event) => setIdClinica(event.target.value)}
+                                >
+
+                                <option Disabled >----Selecione uma clínica----</option>
+                                {
+                                    listaClinicas.map((clinicas) => {
+                                        return(
+                                            <option key={clinicas.idClinica} value={clinicas.idClinica}>
+                                                {clinicas.nomeFantasia}
+                                            </option>
+                                        )
+                                    })
+                                }
+                                </select>
+
+                                <h2>Especialidade:</h2>
+                                <select name="idEspecialidade"
+                                    value={idEspecialidade}
+                                    onChange={(event) => setEspecialidade(event.target.value)}
+                                    >
+                                        <option Disabled>----Selecione a especialidade do médico-----</option>
+                                        {
+                                            listaEspecialidades.map(medicos => {
+                                                return(
+                                                    <option key={medicos.idEspecialidade} value={medicos.idEspecialidade}>
+                                                        {medicos.descricaoEspec}
+                                                    </option>
+                                                )
+                                            })
+                                        }    
+                                        
+                                </select>
                                                   
                                 <h2>Nome do médico:</h2>
                                 <input type="text"
@@ -588,10 +598,21 @@ import '../../App.css';
                                     name="nomeMedico"
                                 />
 
+                                <h2>CRM:</h2>
+                                <input type="text"
+                                    value={crm}
+                                    onChange={(event) => setCrm(event.target.value)}
+                                    required
+                                    placeholder="12345-SP"
+                                    name="crm"        
+                                />
+
                                 <button type="submit">Cadastrar</button>
                             </form>
                             </div>
                 </section>
+
+                {/*CADASTRA PACIENTES */}
                 <section className="section-cadastrar-consulta">
                         <h1>Cadastrar pacientes: </h1>
                         <div className="cadastrar-consulta">
@@ -625,6 +646,35 @@ import '../../App.css';
                                     name="nomePaciente"
                                 />
 
+                                <h2>RG:</h2>
+                                <input type="number"
+                                    value={rg}
+                                    onChange={(event) => setRg(event.target.value)}
+                                    required
+                                    maxLength="8"
+                                    placeholder="Digite seu rg até 8 caracteres"
+                                    name="rg"        
+                                />    
+
+                                <h2>CPF:</h2>
+                                <input type="number"
+                                    value={cpf}
+                                    onChange={(event) => setCpf(event.target.value)}
+                                    required
+                                    maxLength="8"
+                                    placeholder="Digite seu cpf até 8 caracteres"
+                                    name="cpf"        
+                                />
+
+                            <h2>Data de Nascimento:</h2>
+                            <input 
+                                type="date" 
+                                placeholder="Data de nascimento" 
+                                required
+                                name="dataNascimento"
+                                value={dataNascimento}
+                                onChange={(event) => setDataNascimento(event.target.value)}
+                             />
                                 <button type="submit">Cadastrar</button>
                             </form>
                             </div>

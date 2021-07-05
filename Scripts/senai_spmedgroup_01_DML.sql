@@ -1,21 +1,21 @@
 
-USE SPMG;
+USE SPMG2;
 INSERT INTO TiposUsuarios(Nome)
 VALUES ('Administrador'),('Médico'),('Paciente');
 
 
 --INSERINDO DADOS NA TABELA DOS USUÁRIOS
-INSERT INTO Usuarios (IdTipoUsuario,IdEspecialidade,Nome,Email,Senha)
-VALUES (1,1,'Admin','adm@email.com','adm123')
-       ,(2,6,'Saulo','Saulo@email.com','saulo123')
-	   ,(2,3,'Aricia','Aricia@email.com','aricia123')
-	   ,(3,1,'Cauã','Caua@email.com','caua123')
-	   ,(3,1,'Ellen','Ellen@email.com','ellen123')
+INSERT INTO Usuarios (IdTipoUsuario,Nome,Email,Senha)
+VALUES (1,'Admin','adm@email.com','adm123')
+       ,(2,'Saulo','Saulo@email.com','saulo123')
+	   ,(2,'Aricia','Aricia@email.com','aricia123')
+	   ,(3,'Cauã','Caua@email.com','caua123')
+	   ,(3,'Ellen','Ellen@email.com','ellen123')
 
 
 --INSERINDO DADOS NA TABELA DE ESPECIALIDADES
 INSERT INTO Especialidades(DescricaoEspec)
-VALUES('Nenhuma'),('Dentista'),('Cardiologista'),('Dermatologista'),('Nutricionista'),('Pediatra');
+VALUES('Dentista'),('Cardiologista'),('Dermatologista'),('Nutricionista'),('Pediatra');
 
 
 --INSERINDO DADOS DENTRO DA TABELA DE CLÍNICAS
@@ -29,24 +29,19 @@ VALUES ('Clínica de Odontologia',435678092,'07:00 ás 20:00','Rua São Sebastião, 
 INSERT INTO StatusConsulta(DescricaoStatus)
 VALUES ('Agendada'),('Confirmada'),('Cancelada');
 
-INSERT INTO Medicos(IdUsuario,NomeMedico)
-VALUES (2,'Saulo')
-       ,(3,'Aricia');
+INSERT INTO Medicos(IdUsuario,IdClinica,IdEspecialidade,NomeMedico, CRM)
+VALUES (2,3,5,'Saulo','24575-SP')
+       ,(3,2,2,'Aricia','26890-SP');
 
-delete from Medicos;
 
-INSERT INTO Pacientes(IdUsuario,NomePaciente)
-VALUES (4,'Cauã')
-       ,(5,'Ellen');
+INSERT INTO Pacientes(IdUsuario,NomePaciente,RG,CPF,DataNascimento)
+VALUES (4,'Cauã',82919742,29187329,'12/03/2006')
+       ,(5,'Ellen',76320551,08294508,'08/06/2001');
 
-DELETE FROM Pacientes;
 
 INSERT INTO Consultas(IdPaciente,IdMedico,IdStatusConsulta,DataConsulta,HroConsulta,DescricaoConsulta)
-VALUES (1,1,1,'20/07/2021','16:00','Consulta para verificação de normalidade')
-	   ,(2,2,2,'13/03/2021','8:00','Análise de examos pedidos do lado direito do coração!');
-
-DELETE FROM Consultas
-DELETE FROM Pacientes;
+VALUES (5,1,1,'20/07/2021','16:00','Consulta para verificação de normalidade')
+	   ,(6,2,2,'13/03/2021','8:00','Análise de examos pedidos do lado direito do coração!');
 
 
 SELECT * FROM Consultas;

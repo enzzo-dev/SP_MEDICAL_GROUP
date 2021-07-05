@@ -9,12 +9,12 @@ namespace senai_sp_medical_group_WebApi.Domains
     {
         public Especialidade()
         {
-            Usuarios = new HashSet<Usuario>();
+            Medicos = new HashSet<Medico>();
         }
 
         public int IdEspecialidade { get; set; }
         public string DescricaoEspec { get; set; }
 
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<Medico> Medicos { get; set; }
     }
 }

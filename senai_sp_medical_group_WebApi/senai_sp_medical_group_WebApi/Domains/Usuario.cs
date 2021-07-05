@@ -15,12 +15,10 @@ namespace senai_sp_medical_group_WebApi.Domains
 
         public int? IdTipoUsuario { get; set; }
         public int IdUsuario { get; set; }
-        public int? IdEspecialidade { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
 
-        public virtual Especialidade IdEspecialidadeNavigation { get; set; }
         public virtual TiposUsuario IdTipoUsuarioNavigation { get; set; }
         public virtual ICollection<Medico> Medicos { get; set; }
         public virtual ICollection<Paciente> Pacientes { get; set; }

@@ -1,8 +1,6 @@
-CREATE DATABASE Medical_GROUP;
+CREATE DATABASE SPMG2;
 
-DROP DATABASE Medical_GROUP;
-
-
+USE SPMG2;
 --ARQUIVO DDL PARA CRIAR O BANCO DE DADOS E TABELAS NECESSÁRIAS PARA A REALIZAÇÃO DO DESAFIO
 CREATE TABLE TiposUsuarios
 (
@@ -87,11 +85,12 @@ CREATE TABLE Consultas
 
 );
 
- --SELECT * FROM TiposUsuarios;
- --SELECT * FROM Usuarios;
- --SELECT * FROM Medicos;
- --SELECT * FROM Consultas;
- --SELECT * FROM Clinica;
- --SELECT * FROM Pacientes; 
- --SELECT * FROM StatusConsulta;
- --SELECT * FROM Especialidades;
+ SELECT * FROM TiposUsuarios;
+ SELECT * FROM Usuarios;
+ SELECT * FROM Medicos;
+ SELECT * FROM Consultas;
+ SELECT * FROM Clinica;
+ SELECT * FROM Pacientes; 
+ SELECT * FROM StatusConsulta;
+ SELECT * FROM Especialidades;
+

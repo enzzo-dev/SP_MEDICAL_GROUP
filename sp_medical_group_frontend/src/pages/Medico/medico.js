@@ -26,7 +26,7 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        axios.get('http://localhost:5000/api/Consulta',{
+        axios.get('http://localhost:5000/api/consulta/consultasMedicos',{
             headers : {
                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -132,7 +132,7 @@ render(){
                     </thead>
                     <tbody>
                          {
-                            this.state.listaConsultas.map( consulta => {
+                            this.state.listaConsultas.map( (consulta) => {
                                 return(
                                     <tr key={consulta.idConsulta}>
                                         <td>{consulta.idMedicoNavigation.nomeMedico}</td>
