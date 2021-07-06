@@ -49,7 +49,7 @@ class consultasPacientes extends Component{
       renderizaItem = ({item}) => (
         <View style={styles.ItemConsulta}>
         <View style={styles.flatItemContainer}>
-          <Text style={styles.flatItemInfo}>{item.dataConsulta}</Text>
+          <Text style={styles.flatItemInfo}>{new Date(item.dataConsulta).toLocaleDateString('pt-br')}</Text>
           <Text style={styles.flatItemTitle}>{"Paciente: "}{item.idPacienteNavigation.nomePaciente}</Text>
           <Text style={styles.flatItemInfo}>{"Médico: "}{item.idMedicoNavigation.nomeMedico}</Text>
           <Text style={styles.flatItemDescription}>{item.descricaoConsulta}</Text>

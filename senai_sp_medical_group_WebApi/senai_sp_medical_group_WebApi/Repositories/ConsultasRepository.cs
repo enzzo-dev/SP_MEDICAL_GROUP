@@ -90,9 +90,9 @@ namespace senai_sp_medical_group_WebApi.Repositories
              .FirstOrDefault(m => m.IdUsuario == id);
 
             return ctx.Consultas
-                .Include(c => c.IdMedicoNavigation)
-                .Include(c => c.IdStatusConsultaNavigation)
-                .Include(c => c.IdPacienteNavigation)
+                 .Include(c => c.IdPacienteNavigation)
+                 .Include(c => c.IdStatusConsultaNavigation)
+                 .Include(c => c.IdMedicoNavigation)
                 .Where(c => c.IdMedico == medico.IdMedico)
                 .ToList();
         }
@@ -106,6 +106,7 @@ namespace senai_sp_medical_group_WebApi.Repositories
                  .Include(c => c.IdPacienteNavigation)
                  .Include(c => c.IdStatusConsultaNavigation)
                  .Include(c => c.IdMedicoNavigation)
+                 .Include(c => c.IdMedicoNavigation.IdEspecialidadeNavigation)
                  .Where(c => c.IdPaciente == paciente.IdPaciente)
                  .ToList();
         }

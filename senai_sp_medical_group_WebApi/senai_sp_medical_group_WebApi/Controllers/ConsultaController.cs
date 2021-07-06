@@ -109,7 +109,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
             }
         }
         
-        [Authorize(Roles = "2")]
+        
         [HttpGet("consultasMedicos")]
         public IActionResult GetMy()
         {
@@ -119,7 +119,7 @@ namespace senai_sp_medical_group_WebApi.Controllers
 
                _consultaRepository.ListarConsultasM(idUsuario);
 
-                return StatusCode(201);
+                return StatusCode(200);
 
 
             }

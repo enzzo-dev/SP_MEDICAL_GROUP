@@ -15,7 +15,7 @@ class Consultas extends Component{
     constructor(props){
         super(props);
         this.state = {
-            listaConsultas : [],
+            listaConsulta : [],
             descricao : '',
             atualizando : '',
             idDescricaoAlterado : 0
@@ -26,7 +26,7 @@ class Consultas extends Component{
 
         console.log("Vamos realizar a chamada para a API")
 
-        axios.get('http://localhost:5000/api/consulta/consultasMedicos',{
+        axios.get('http://localhost:5000/api/Consulta/consultasMedicos',{
             headers : {
                 'Authorization' : 'Bearer ' + localStorage.getItem('usuario-login')
             }
@@ -34,12 +34,10 @@ class Consultas extends Component{
 
         .then(resposta => {
             if(resposta.status === 201){
-                this.setState({listaConsultas : resposta.data})
-                console.log('lista puxada com sucesso!')
+                this.setState({listaConsulta : resposta.data})
             }
         })
 
-        
         .catch( erro => console.log(erro) )
     }
 
@@ -107,15 +105,20 @@ class Consultas extends Component{
   
 
     componentDidMount(){
-        this.buscarConsultas();
+       this.buscarConsultas() 
     }
+
+    
+    componentWillUnmount(){
+        localStorage.removeItem('usuario-login')
+    }
+
 
 render(){
     return(
         <div>
             <Header />
             <Link to="/"><h3 className="logout">Sair</h3></Link>
-               
             <section className="section-consultas">
                 <h1>Consultas</h1>
                 <table>
@@ -132,7 +135,7 @@ render(){
                     </thead>
                     <tbody>
                          {
-                            this.state.listaConsultas.map( (consulta) => {
+                            this.state.listaConsulta.map( (consulta) => {
                                 return(
                                     <tr key={consulta.idConsulta}>
                                         <td>{consulta.idMedicoNavigation.nomeMedico}</td>
@@ -142,7 +145,7 @@ render(){
                                         <td>{consulta.idStatusConsultaNavigation.descricaoStatus}</td>
                                         <td>{consulta.descricaoConsulta}</td>
                                         <td>
-                                                <button  onClick={() => this.buscarDescricaoPorId(consulta)}className="Editar"type="submit">Editar</button>
+                                            <button  onClick={() => this.buscarDescricaoPorId(consulta)}className="Editar"type="submit">Editar</button>
                                         </td>
                                     </tr>
                                 )
